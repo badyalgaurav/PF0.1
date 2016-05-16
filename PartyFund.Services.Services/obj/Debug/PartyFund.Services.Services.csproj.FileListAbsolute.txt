@@ -1,0 +1,5 @@
+D:\Projects\PartyFund\PartyFund.Services.Services\bin\Debug\PartyFund.Services.Services.dll
+D:\Projects\PartyFund\PartyFund.Services.Services\bin\Debug\PartyFund.Services.Services.pdb
+D:\Projects\PartyFund\PartyFund.Services.Services\obj\Debug\PartyFund.Services.Services.dll
+D:\Projects\PartyFund\PartyFund.Services.Services\obj\Debug\PartyFund.Services.Services.pdb
+D:\Projects\PartyFund\PartyFund.Services.Services\obj\Debug\PartyFund.Services.Services.csprojResolveAssemblyReference.cache

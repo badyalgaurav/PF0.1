@@ -1,0 +1,10 @@
+F:\Applications\PartyFund\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.dll
+F:\Applications\PartyFund\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.pdb
+F:\Applications\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.csprojResolveAssemblyReference.cache
+F:\Applications\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.dll
+F:\Applications\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.pdb
+D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.dll
+D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.pdb
+D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.dll
+D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.pdb
+D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.csprojResolveAssemblyReference.cache

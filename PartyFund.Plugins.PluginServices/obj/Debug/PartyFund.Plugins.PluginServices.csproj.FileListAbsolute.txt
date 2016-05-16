@@ -1,0 +1,10 @@
+F:\Applications\PartyFund\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugins.PluginServices.dll
+F:\Applications\PartyFund\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugins.PluginServices.pdb
+F:\Applications\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.csprojResolveAssemblyReference.cache
+F:\Applications\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.dll
+F:\Applications\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.pdb
+D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugins.PluginServices.dll
+D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugins.PluginServices.pdb
+D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.csprojResolveAssemblyReference.cache
+D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.dll
+D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.pdb

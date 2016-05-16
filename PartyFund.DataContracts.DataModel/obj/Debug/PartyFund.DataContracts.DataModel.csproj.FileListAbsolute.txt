@@ -1,0 +1,14 @@
+F:\Applications\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\PartyFund.DataContracts.DataModel.dll
+F:\Applications\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\PartyFund.DataContracts.DataModel.pdb
+F:\Applications\PartyFund\PartyFund.DataContracts.DataModel\obj\Debug\PartyFund.DataContracts.DataModel.dll
+F:\Applications\PartyFund\PartyFund.DataContracts.DataModel\obj\Debug\PartyFund.DataContracts.DataModel.pdb
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\PartyFund.DataContracts.DataModel.dll.config
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\PartyFund.DataContracts.DataModel.dll
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\PartyFund.DataContracts.DataModel.pdb
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\EntityFramework.dll
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\EntityFramework.xml
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\obj\Debug\PartyFund.DataContracts.DataModel.csprojResolveAssemblyReference.cache
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\obj\Debug\PartyFund.DataContracts.DataModel.dll
+D:\Projects\PartyFund\PartyFund.DataContracts.DataModel\obj\Debug\PartyFund.DataContracts.DataModel.pdb
