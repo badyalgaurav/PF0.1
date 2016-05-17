@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PartyFund.DataContracts.DataModel;
+using PartyFund.Presentation.UI.Common.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,12 @@ namespace PartyFund.Services.Services.Abstraction
 {
    public interface IUserDetailsServices
     {
+
+        IQueryable<UserDetail> GetAllUsers();
+        UserDetail GetByID(string id);
+        void Insert(UserDetailViewModel obj);
+        void Update(UserDetailViewModel obj);
+        void Delete(string id);
+        void Save();
     }
 }

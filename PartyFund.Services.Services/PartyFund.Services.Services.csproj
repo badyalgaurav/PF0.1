@@ -54,6 +54,14 @@
       <Project>{1e1d8990-c91c-47ba-b3fd-17c58f60a912}</Project>
       <Name>PartyFund.DataAccess.Implementation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PartyFund.DataContracts.DataModel\PartyFund.DataContracts.DataModel.csproj">
+      <Project>{445fdeb7-9734-4aaf-b0aa-371245415044}</Project>
+      <Name>PartyFund.DataContracts.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartyFund.Presentation.UI.Common\PartyFund.Presentation.UI.Common.csproj">
+      <Project>{41b2ede6-dbbe-4d3c-b9d1-1e599538241d}</Project>
+      <Name>PartyFund.Presentation.UI.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
