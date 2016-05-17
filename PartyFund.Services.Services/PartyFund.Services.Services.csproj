@@ -49,6 +49,12 @@
     <Compile Include="UserDetailsServices.cs" />
     <Compile Include="UserServices.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PartyFund.DataAccess.Implementation\PartyFund.DataAccess.Implementation.csproj">
+      <Project>{1e1d8990-c91c-47ba-b3fd-17c58f60a912}</Project>
+      <Name>PartyFund.DataAccess.Implementation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
