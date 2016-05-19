@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.Presentation.UI", "PartyFund\PartyFund.Presentation.UI.csproj", "{B1546201-87F6-4080-B720-ED734CD1BCE3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{AEFA9BB3-6369-460F-B8CA-2D799262DDC3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Presentation", "1. Presentation", "{AEFA9BB3-6369-460F-B8CA-2D799262DDC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.Presentation.UI.Common", "PartyFund.Presentation.UI.Common\PartyFund.Presentation.UI.Common.csproj", "{41B2EDE6-DBBE-4D3C-B9D1-1E599538241D}"
 EndProject

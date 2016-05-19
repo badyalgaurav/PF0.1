@@ -8,3 +8,8 @@ D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugi
 D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.csprojResolveAssemblyReference.cache
 D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.dll
 D:\Projects\PartyFund\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.pdb
+D:\Projects\GitProject\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugins.PluginServices.dll
+D:\Projects\GitProject\PartyFund.Plugins.PluginServices\bin\Debug\PartyFund.Plugins.PluginServices.pdb
+D:\Projects\GitProject\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.csprojResolveAssemblyReference.cache
+D:\Projects\GitProject\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.dll
+D:\Projects\GitProject\PartyFund.Plugins.PluginServices\obj\Debug\PartyFund.Plugins.PluginServices.pdb

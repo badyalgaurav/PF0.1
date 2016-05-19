@@ -8,3 +8,8 @@ D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Prese
 D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.dll
 D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.pdb
 D:\Projects\PartyFund\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.csprojResolveAssemblyReference.cache
+D:\Projects\GitProject\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.dll
+D:\Projects\GitProject\PartyFund.Presentation.UI.Common\bin\Debug\PartyFund.Presentation.UI.Common.pdb
+D:\Projects\GitProject\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.csprojResolveAssemblyReference.cache
+D:\Projects\GitProject\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.dll
+D:\Projects\GitProject\PartyFund.Presentation.UI.Common\obj\Debug\PartyFund.Presentation.UI.Common.pdb

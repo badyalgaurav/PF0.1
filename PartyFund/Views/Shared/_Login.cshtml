@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- Page title -->
+        <title>HOMER | WebApp admin theme</title>
+        @Styles.Render("~/Content/vendor/css")
+    </head>
+<body class="blank">
+
+        @RenderSection("featured", required: false)
+                @RenderBody()
+    @Scripts.Render("~/Content/Vendor/JSFiles")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
