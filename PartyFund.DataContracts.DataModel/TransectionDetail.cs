@@ -16,8 +16,8 @@ namespace PartyFund.DataContracts.DataModel
     {
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
-        public string CurrentAmount { get; set; }
-        public Nullable<int> WithDraws { get; set; }
+        public Nullable<decimal> CurrentAmount { get; set; }
+        public Nullable<decimal> WithDraws { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ActionDate { get; set; }
         public string ModifiedBy { get; set; }

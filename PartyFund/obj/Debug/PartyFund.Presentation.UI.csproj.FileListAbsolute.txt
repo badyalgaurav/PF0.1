@@ -147,3 +147,5 @@ D:\Projects\GitProject\PartyFund\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 D:\Projects\GitProject\PartyFund\obj\Debug\PartyFund.Presentation.UI.csprojResolveAssemblyReference.cache
 D:\Projects\GitProject\PartyFund\obj\Debug\PartyFund.dll
 D:\Projects\GitProject\PartyFund\obj\Debug\PartyFund.pdb
+D:\Projects\GitProject\PartyFund\bin\PartyFund.Presentation.UI.Common.dll
+D:\Projects\GitProject\PartyFund\bin\PartyFund.Presentation.UI.Common.pdb

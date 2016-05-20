@@ -27,9 +27,9 @@ namespace PartyFund.DataContracts.DataModel
     
         public virtual DbSet<DepositDetail> DepositDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<TransectionDetail> TransectionDetails { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<UserInRole> UserInRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<TransectionDetail> TransectionDetails { get; set; }
     }
 }

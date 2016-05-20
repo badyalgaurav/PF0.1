@@ -3,6 +3,7 @@
   <EntityContainer Name="PartyFundEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="DepositDetails" EntityType="PartyFundModel.DepositDetail" />
     <EntitySet Name="Roles" EntityType="PartyFundModel.Role" />
+    <EntitySet Name="TransectionDetails" EntityType="PartyFundModel.TransectionDetail" />
     <EntitySet Name="UserDetails" EntityType="PartyFundModel.UserDetail" />
     <EntitySet Name="UserInRoles" EntityType="PartyFundModel.UserInRole" />
     <EntitySet Name="Users" EntityType="PartyFundModel.User" />
@@ -14,6 +15,10 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="UserInRole" EntitySet="UserInRoles" />
     </AssociationSet>
+    <AssociationSet Name="FK_OperationDetails_UserDetails" Association="PartyFundModel.FK_OperationDetails_UserDetails">
+      <End Role="UserDetail" EntitySet="UserDetails" />
+      <End Role="TransectionDetail" EntitySet="TransectionDetails" />
+    </AssociationSet>
     <AssociationSet Name="FK_Users_UserDetails" Association="PartyFundModel.FK_Users_UserDetails">
       <End Role="UserDetail" EntitySet="UserDetails" />
       <End Role="User" EntitySet="Users" />
@@ -22,11 +27,6 @@
       <End Role="User" EntitySet="Users" />
       <End Role="UserInRole" EntitySet="UserInRoles" />
     </AssociationSet>
-    <EntitySet Name="TransectionDetails" EntityType="PartyFundModel.TransectionDetail" />
-    <AssociationSet Name="FK_OperationDetails_UserDetails1" Association="PartyFundModel.FK_OperationDetails_UserDetails1">
-      <End Role="UserDetail" EntitySet="UserDetails" />
-      <End Role="TransectionDetail" EntitySet="TransectionDetails" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="DepositDetail">
     <Key>
@@ -34,7 +34,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
-    <Property Name="TotalSpendMoney" Type="Int32" />
+    <Property Name="TotalSpendMoney" Type="Decimal" Precision="18" Scale="4" />
     <Property Name="DepositDate" Type="DateTime" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="DateCreated" Type="DateTime" Precision="3" />
@@ -49,6 +49,20 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UserInRoles" Relationship="PartyFundModel.FK_UserInRole_Roles" FromRole="Role" ToRole="UserInRole" />
+  </EntityType>
+  <EntityType Name="TransectionDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CurrentAmount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="WithDraws" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ActionDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserDetail" Relationship="PartyFundModel.FK_OperationDetails_UserDetails" FromRole="TransectionDetail" ToRole="UserDetail" />
   </EntityType>
   <EntityType Name="UserDetail">
     <Key>
@@ -74,8 +88,8 @@
     <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
     <Property Name="ParentID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="DepositDetails" Relationship="PartyFundModel.FK_DepositDetails_UserDetails" FromRole="UserDetail" ToRole="DepositDetail" />
+    <NavigationProperty Name="TransectionDetails" Relationship="PartyFundModel.FK_OperationDetails_UserDetails" FromRole="UserDetail" ToRole="TransectionDetail" />
     <NavigationProperty Name="Users" Relationship="PartyFundModel.FK_Users_UserDetails" FromRole="UserDetail" ToRole="User" />
-    <NavigationProperty Name="TransectionDetails" Relationship="PartyFundModel.FK_OperationDetails_UserDetails1" FromRole="UserDetail" ToRole="TransectionDetail" />
   </EntityType>
   <EntityType Name="UserInRole">
     <Key>
@@ -125,6 +139,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_OperationDetails_UserDetails">
+    <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
+    <End Type="PartyFundModel.TransectionDetail" Role="TransectionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransectionDetail">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Users_UserDetails">
     <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="1" />
     <End Type="PartyFundModel.User" Role="User" Multiplicity="*" />
@@ -145,32 +171,6 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="UserInRole">
-        <PropertyRef Name="UserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="TransectionDetail">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="Int32" />
-    <Property Name="CurrentAmount" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="WithDraws" Type="Int32" />
-    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ActionDate" Type="DateTime" Precision="3" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="UserDetail" Relationship="PartyFundModel.FK_OperationDetails_UserDetails1" FromRole="TransectionDetail" ToRole="UserDetail" />
-  </EntityType>
-  <Association Name="FK_OperationDetails_UserDetails1">
-    <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
-    <End Type="PartyFundModel.TransectionDetail" Role="TransectionDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserDetail">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="TransectionDetail">
         <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>

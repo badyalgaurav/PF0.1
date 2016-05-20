@@ -18,8 +18,8 @@ namespace PartyFund.DataContracts.DataModel
         public UserDetail()
         {
             this.DepositDetails = new HashSet<DepositDetail>();
-            this.Users = new HashSet<User>();
             this.TransectionDetails = new HashSet<TransectionDetail>();
+            this.Users = new HashSet<User>();
         }
     
         public int ID { get; set; }
@@ -45,8 +45,8 @@ namespace PartyFund.DataContracts.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepositDetail> DepositDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransectionDetail> TransectionDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

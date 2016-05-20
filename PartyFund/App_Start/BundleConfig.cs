@@ -23,8 +23,9 @@ namespace PartyFund
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            //for login page scripts
+            //for  scripts
             bundles.Add(new ScriptBundle("~/Content/Vendor/JSFiles").Include(
+                //vendor script
                        "~/Content/vendor/jquery/dist/jqueryMin.js",
                        "~/Content/vendor/jquery-ui/jqueryUiMin.js",
                        "~/Content/vendor/slimScroll/jquerySlimscrollMin.js",
@@ -32,14 +33,19 @@ namespace PartyFund
                        "~/Content/vendor/metisMenu/dist/metisMenu.js",
                        "~/Content/vendor/iCheck/icheckMin.js",
                        "~/Content/vendor/sparkline/index.js",
+                       "~/Content/vendor/jquery-validation/jquery.validate.min.js",
+                //App Script
                        "~/Content/scripts/homer.js"
                        ));
-            //For login page css
+            //For  css
             bundles.Add(new StyleBundle("~/Content/vendor/css").Include(
+                //Vendor Style
                 "~/Content/vendor/fontawesome/css/font-awesome.css",
                 "~/Content/vendor/metisMenu/dist/metisMenu.css",
                 "~/Content/vendor/animate.css/animate.css",
                 "~/Content/vendor/bootstrap/dist/css/bootstrap.css",
+                "~/Content/vendor/sweetalert/lib/sweet-alert.css",
+                //App Style
                 "~/Content/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css",
                 "~/Content/fonts/pe-icon-7-stroke/css/helper.css",
                 "~/Content/styles/style.css"

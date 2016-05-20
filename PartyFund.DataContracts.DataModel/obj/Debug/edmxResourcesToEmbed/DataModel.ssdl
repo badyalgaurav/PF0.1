@@ -6,7 +6,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="TotalSpendMoney" Type="int" />
+    <Property Name="TotalSpendMoney" Type="decimal" Precision="18" Scale="4" />
     <Property Name="DepositDate" Type="datetime" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
     <Property Name="DateCreated" Type="datetime" />
@@ -26,8 +26,8 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" />
-    <Property Name="CurrentAmount" Type="nchar" MaxLength="10" />
-    <Property Name="WithDraws" Type="int" />
+    <Property Name="CurrentAmount" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="WithDraws" Type="decimal" Precision="18" Scale="4" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
     <Property Name="ActionDate" Type="datetime" />
     <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
