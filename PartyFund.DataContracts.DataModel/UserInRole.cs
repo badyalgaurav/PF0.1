@@ -15,7 +15,7 @@ namespace PartyFund.DataContracts.DataModel
     public partial class UserInRole
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
+        public Nullable<int> UserID { get; set; }
         public Nullable<int> RoleID { get; set; }
     
         public virtual Role Role { get; set; }

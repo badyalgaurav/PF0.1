@@ -74,6 +74,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="PartyFundModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="UserDetailsID" ColumnName="UserDetailsID" />
           <ScalarProperty Name="Salt" ColumnName="Salt" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />

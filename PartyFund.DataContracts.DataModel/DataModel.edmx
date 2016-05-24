@@ -66,8 +66,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
           <Property Name="RoleID" Type="int" />
         </EntityType>
         <EntityType Name="Users">
@@ -77,10 +77,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="255" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="250" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Salt" Type="varchar" MaxLength="250" />
-          <Property Name="UserDetailsID" Type="int" Nullable="false" />
+          <Property Name="UserDetailsID" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
         </EntityType>
         <Association Name="FK_DepositDetails_UserDetails">
           <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
@@ -119,7 +120,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserInRole_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="UserInRole" Type="Self.UserInRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -131,7 +132,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_UserDetails">
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserDetails">
@@ -269,8 +270,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
           <Property Name="RoleID" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="PartyFundModel.FK_UserInRole_Roles" FromRole="UserInRole" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="PartyFundModel.FK_UserInRole_Users" FromRole="UserInRole" ToRole="User" />
@@ -282,10 +283,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Salt" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="UserDetailsID" Type="Int32" Nullable="false" />
+          <Property Name="UserDetailsID" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserDetail" Relationship="PartyFundModel.FK_Users_UserDetails" FromRole="User" ToRole="UserDetail" />
           <NavigationProperty Name="UserInRoles" Relationship="PartyFundModel.FK_UserInRole_Users" FromRole="User" ToRole="UserInRole" />
         </EntityType>
@@ -326,7 +328,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_UserDetails">
-          <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="1" />
+          <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
           <End Type="PartyFundModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserDetail">
@@ -338,7 +340,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserInRole_Users">
-          <End Type="PartyFundModel.User" Role="User" Multiplicity="1" />
+          <End Type="PartyFundModel.User" Role="User" Multiplicity="0..1" />
           <End Type="PartyFundModel.UserInRole" Role="UserInRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -428,6 +430,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PartyFundModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="UserDetailsID" ColumnName="UserDetailsID" />
                 <ScalarProperty Name="Salt" ColumnName="Salt" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

@@ -19,6 +19,6 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
         public bool IsActive { get; set; }
         public string Salt { get; set; }
         public int UserDetailsID { get; set; }
-    
+        public Nullable<System.DateTime> DateCreated { get; set; }
     }
 }

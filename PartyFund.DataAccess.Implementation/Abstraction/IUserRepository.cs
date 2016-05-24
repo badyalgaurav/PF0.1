@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace PartyFund.DataAccess.Implementation.Abstraction
 {
-    public interface IUserRepository : IBaseRepository<User>
+     //: IBaseRepository<User>
+    public interface IUserRepository
     {
+        void Insert(UserDetailViewModel obj);
+        void Save();
     }
 }

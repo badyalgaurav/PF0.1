@@ -17,6 +17,7 @@ namespace PartyFund.Controllers
 
         public ActionResult About()
         {
+            var userName = User.Identity.Name;
             ViewBag.Message = "Your app description page.";
 
             return View();

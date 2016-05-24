@@ -26,7 +26,7 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
         public string State { get; set; }
        [DisplayName("Country")]
         public string Country { get; set; }
-       [DisplayName("Company Name")]
+       [DisplayName("Organization Name")]
         public string CompanyName { get; set; }
        [DisplayName("Desgination")]
         public string Desgination { get; set; }

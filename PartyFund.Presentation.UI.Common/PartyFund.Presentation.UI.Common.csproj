@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="ViewModels\CustomPrincipalSerializeModel.cs" />
     <Compile Include="ViewModels\DepositDetailViewModel.cs" />
     <Compile Include="ViewModels\TransectionDetailViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />

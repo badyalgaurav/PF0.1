@@ -95,8 +95,8 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
     <Property Name="RoleID" Type="Int32" />
     <NavigationProperty Name="Role" Relationship="PartyFundModel.FK_UserInRole_Roles" FromRole="UserInRole" ToRole="Role" />
     <NavigationProperty Name="User" Relationship="PartyFundModel.FK_UserInRole_Users" FromRole="UserInRole" ToRole="User" />
@@ -108,10 +108,11 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="Salt" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="UserDetailsID" Type="Int32" Nullable="false" />
+    <Property Name="UserDetailsID" Type="Int32" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <NavigationProperty Name="UserDetail" Relationship="PartyFundModel.FK_Users_UserDetails" FromRole="User" ToRole="UserDetail" />
     <NavigationProperty Name="UserInRoles" Relationship="PartyFundModel.FK_UserInRole_Users" FromRole="User" ToRole="UserInRole" />
   </EntityType>
@@ -152,7 +153,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Users_UserDetails">
-    <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="1" />
+    <End Type="PartyFundModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
     <End Type="PartyFundModel.User" Role="User" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserDetail">
@@ -164,7 +165,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserInRole_Users">
-    <End Type="PartyFundModel.User" Role="User" Multiplicity="1" />
+    <End Type="PartyFundModel.User" Role="User" Multiplicity="0..1" />
     <End Type="PartyFundModel.UserInRole" Role="UserInRole" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">

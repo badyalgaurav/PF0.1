@@ -42,10 +42,13 @@ namespace PartyFund.DataAccess.Implementation.Repositories
         return context.UserDetails.Find(Id);
     }
 
-    public void Insert(UserDetailViewModel obj)
+    public void Insert(UserDetailViewModel model)
     {
-        var userDetails = new UserDetail {FirstName = obj.FirstName, MiddleName = obj.MiddleName, LastName = obj.LastName, CompanyName = obj.CompanyName };
+        var test = model.Password;
+        var userDetails = new UserDetail {FirstName = model.FirstName, MiddleName = model.MiddleName, LastName = model.LastName, CompanyName = model.CompanyName, Address=model.Address,City=model.City,IsActive = true, DateCreated = DateTime.Now, Desgination=model.Desgination, Department=model.Department,Country = model.Country, MobileNumber = model.MobileNumber, };
         context.UserDetails.Add(userDetails);
+        Save();
+        model.ID = userDetails.ID;
     }
 
     public void Update(UserDetailViewModel obj)

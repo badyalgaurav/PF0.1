@@ -10,16 +10,31 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using PartyFund.Filters;
 using PartyFund.Models;
-
+using PartyFund.Presentation.UI.Common.ViewModels;
+using PartyFund.Services.Services.Abstraction;
+using PartyFund.Services.Services;
+using PartyFund.Presentation.UI.Common;
+using PartyFund.DataContracts.DataModel;
+using System.Web.Script.Serialization;
 namespace PartyFund.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+
+
+        IUserDetailsServices iUserDetailsServices = null;
+        IUserServices iUserServices = null;
+        public AccountController()
+        {
+            iUserDetailsServices = new UserDetailsServices();
+            iUserServices = new UserServices();
+        }
         //
         // GET: /Account/Login
-
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -35,11 +50,61 @@ namespace PartyFund.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
-                return RedirectToLocal(returnUrl);
-            }
 
+            //while login user can use email as well username
+            using (var context = new PartyFundEntities())
+            {
+                var res = context.Users.Where(x => x.ID != null);
+
+                var response =
+                     context.Users.FirstOrDefault(x => (x.UserName.ToLower() == model.UserName.ToLower() || x.Email.ToLower() == model.UserName.ToLower()) && x.IsActive);
+                if (response != null)
+                {
+                    //store password by encrypt form
+                    //Read work factor http://wildlyinaccurate.com/bcrypt-choosing-a-work-factor/
+                    var PASSWORD_BCRYPT_COST = 8; // work factor
+                    var PASSWORD_SALT = response.Salt; //generated random salt
+                    var salt = "$2a$" + PASSWORD_BCRYPT_COST + "$" + PASSWORD_SALT;
+                    var pwdToHash = model.Password + salt;
+
+                    var isCorrect = BCrypt.Net.BCrypt.Verify(pwdToHash, response.Password);
+                    if (isCorrect)
+                    {
+                        //skip yet unitl entry in db
+                        var role = context.UserInRoles.FirstOrDefault(x => x.UserID == response.ID);
+                        var roleID = role == null ? 1 : role.RoleID;
+                        //if (role != null)
+                        //{
+                        //using Iprincipal to store the more object in cookies
+                        var serializeModel = new CustomPrincipalSerializeModel
+                        {
+                            ID = response.ID,
+                            UserName = response.UserName,
+                            Email = response.Email,
+                            PlainTextPassword = model.Password, //storing it for auto login once user logged in to the system
+                            RoleId = Convert.ToInt32(roleID)
+                        };
+
+                        var serializer = new JavaScriptSerializer();
+                        var userData = serializer.Serialize(serializeModel);
+
+
+                        FormsAuthentication.Initialize();
+                        var loginTicket = new FormsAuthenticationTicket(1, response.Email, DateTime.Now, DateTime.Now.AddMonths(1),
+                            true, userData);
+                        var encryptedTicket = FormsAuthentication.Encrypt(loginTicket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        Response.Cookies.Add(cookie);
+                        if (roleID == 1)
+                        {
+                            return RedirectToAction("Registration", "User", new { area = "User" });
+                        }
+                        return RedirectToAction("OpenJobs", "Home", new { area = "Mechanic" });
+                        //}
+                    }
+                }
+
+            }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
@@ -72,13 +137,24 @@ namespace PartyFund.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(UserDetailViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 try
                 {
+                    var password = model.Password;
+                    var PASSWORD_BCRYPT_COST = 8; // work factor
+                    var PASSWORD_SALT = Utility.GetSalt(); //generated random salt
+                    var salt = "$2a$" + PASSWORD_BCRYPT_COST + "$" + PASSWORD_SALT;
+                    var pwdToHash = password + salt;
+                    var hashToStoreInDatabase = BCrypt.Net.BCrypt.HashPassword(pwdToHash, BCrypt.Net.BCrypt.GenerateSalt());
+
+                    model.Password = hashToStoreInDatabase;
+                    model.Salt = PASSWORD_SALT;
+                    iUserDetailsServices.Insert(model);
+                    iUserServices.Insert(model);
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");

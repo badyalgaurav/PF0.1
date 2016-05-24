@@ -39,10 +39,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -60,9 +71,6 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -2561,6 +2569,7 @@
     <Content Include="Areas\User\Views\User\Index.cshtml" />
     <Content Include="Areas\User\Views\User\Registration.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="LICENSE.txt" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -2624,15 +2633,26 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\User\Models\" />
-    <Folder Include="Areas\User\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PartyFund.DataAccess.Implementation\PartyFund.DataAccess.Implementation.csproj">
+      <Project>{1e1d8990-c91c-47ba-b3fd-17c58f60a912}</Project>
+      <Name>PartyFund.DataAccess.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartyFund.DataContracts.DataModel\PartyFund.DataContracts.DataModel.csproj">
+      <Project>{445fdeb7-9734-4aaf-b0aa-371245415044}</Project>
+      <Name>PartyFund.DataContracts.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PartyFund.Presentation.UI.Common\PartyFund.Presentation.UI.Common.csproj">
       <Project>{41b2ede6-dbbe-4d3c-b9d1-1e599538241d}</Project>
       <Name>PartyFund.Presentation.UI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PartyFund.Services.Services\PartyFund.Services.Services.csproj">
+      <Project>{f1c82f33-5a80-4e0c-9b7f-afc6ccf66cda}</Project>
+      <Name>PartyFund.Services.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
