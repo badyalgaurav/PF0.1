@@ -29,6 +29,10 @@ namespace PartyFund.Services.Services
        {
            return iUserDetailsRepository.GetAllUsers();
        }
+       public IQueryable<UserDetail> GetByAdminID(string adminID)
+       {
+           return iUserDetailsRepository.GetByAdminID(adminID);
+       }
      public  UserDetail GetByID(string id)
        {
            return iUserDetailsRepository.GetByID(id);

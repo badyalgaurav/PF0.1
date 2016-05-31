@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@model WebApi.Models.EmployeesDetailsModel
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+@using (Html.BeginForm("Index","Home",FormMethod.Post, new { @class = "myclass",id="registerationForm"}))
+{
+<div class="container">
+  <h2>Registeration form</h2>
+  
+  <form role="form" id="registartionForm" >
+    <div class="form-group">
+      <label for="email">Email:</label>
+      @Html.TextBoxFor(x=>x.Email, new { @class="form-control", id="txtemail", placeholder="Enter email"})
+    </div>
+    <div class="form-group">
+      <label for="pwd">Name:</label>
+       @Html.TextBoxFor(x=>x.Name, new { @class="form-control", id="txtName", placeholder="Enter Name"})
+    </div>
+     <div class="form-group">
+      <label for="pwd">Age:</label>
+       @Html.TextBoxFor(x=>x.Age, new { @class="form-control", id="txtAge", placeholder="Enter Age"})
+    </div>
+         <div class="form-group">
+      <label for="pwd">City:</label>
+      @Html.TextBoxFor(x=>x.City, new { @class="form-control", id="txtAge", placeholder="Enter City"})
+    </div>  
+    <button type="submit" class="btn btn-default" id="btnSubmit">Submit</button>
+  </form>
+ 
+</div>
+}
+
+
+<script>
+    $(document).ready(function () {
+       // var Id = 1;
+        $("#btnSubmit").click(function () {
+            debugger;
+            var data = $('#registerationForm').serialize();
+          //  jQuery.support.cors = true;
+            $.ajax({
+                url: "api/values/Post",
+                type: "Post",
+                data: data,
+                //contentType: "application/jsonp; charset=utf-8",
+                success: function (data) {
+                    debugger;
+                  //  alert("Employee Added successfully");
+                    window.location.href = '@Url.Action("EmployeeDetail","Home")'; 
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>

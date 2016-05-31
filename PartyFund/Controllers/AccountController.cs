@@ -16,6 +16,11 @@ using PartyFund.Services.Services;
 using PartyFund.Presentation.UI.Common;
 using PartyFund.DataContracts.DataModel;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Configuration;
+using System.Net.Http.Headers;
 namespace PartyFund.Controllers
 {
     [Authorize]
@@ -24,11 +29,16 @@ namespace PartyFund.Controllers
     {
 
 
-
+        HttpClient client;
         IUserDetailsServices iUserDetailsServices = null;
         IUserServices iUserServices = null;
+        string url = ConfigurationManager.AppSettings["ApiUrl"]+"User/";
         public AccountController()
         {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ApiUrl"]);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); 
             iUserDetailsServices = new UserDetailsServices();
             iUserServices = new UserServices();
         }
@@ -126,9 +136,14 @@ namespace PartyFund.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string id )
         {
             return View();
+        }
+        [AllowAnonymous]
+        public ActionResult RegisterTest(string id)
+        {
+            return View("~/Views/Account/_AddEditUser.cshtml");
         }
 
         //
@@ -137,7 +152,7 @@ namespace PartyFund.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(UserDetailViewModel model)
+        public async Task<ActionResult> Register(UserDetailViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -153,15 +168,23 @@ namespace PartyFund.Controllers
 
                     model.Password = hashToStoreInDatabase;
                     model.Salt = PASSWORD_SALT;
-                    iUserDetailsServices.Insert(model);
-                    iUserServices.Insert(model);
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url + "RegisterApi", model);
+                    if (responseMessage.IsSuccessStatusCode)
+                    {
+                        WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
+                     //   return RedirectToAction("Index");
+                    }
+                    return RedirectToAction("Error");
+                    //iUserDetailsServices.Insert(model);
+                    //iUserServices.Insert(model);
+                    
                 }
                 catch (MembershipCreateUserException e)
                 {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    return RedirectToAction("Error");
                 }
             }
 

@@ -11,11 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.Presentation.UI.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.DataAccess.Implementation", "PartyFund.DataAccess.Implementation\PartyFund.DataAccess.Implementation.csproj", "{1E1D8990-C91C-47BA-B3FD-17C58F60A912}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access", "{8074D6CB-FBAC-48D6-88A3-98CE1395C0D5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Data Access", "4. Data Access", "{8074D6CB-FBAC-48D6-88A3-98CE1395C0D5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Contract", "Data Contract", "{64339499-9032-4FE1-80EF-CE4909859C6E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Data Contract", "5. Data Contract", "{64339499-9032-4FE1-80EF-CE4909859C6E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{31E7E721-7745-4CA7-9252-89181116CED3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Plugins", "6. Plugins", "{31E7E721-7745-4CA7-9252-89181116CED3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.Plugins.PluginServices", "PartyFund.Plugins.PluginServices\PartyFund.Plugins.PluginServices.csproj", "{E5995DDD-FEC5-495D-A269-27C5D45BF7AA}"
 EndProject
@@ -23,7 +23,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.DataContracts.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.Services.Services", "PartyFund.Services.Services\PartyFund.Services.Services.csproj", "{F1C82F33-5A80-4E0C-9B7F-AFC6CCF66CDA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5BEA5C70-B830-4FA5-9534-27979554C2D6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Services", "3. Services", "{5BEA5C70-B830-4FA5-9534-27979554C2D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyFund.WebApi.WebApi", "WebApi\PartyFund.WebApi.WebApi.csproj", "{832C502E-15A6-45A7-9797-464090E88B42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. WebApi", "2. WebApi", "{52613B2A-AB0C-44E5-99D2-BD24DCD8DE6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{F1C82F33-5A80-4E0C-9B7F-AFC6CCF66CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1C82F33-5A80-4E0C-9B7F-AFC6CCF66CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1C82F33-5A80-4E0C-9B7F-AFC6CCF66CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{832C502E-15A6-45A7-9797-464090E88B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{832C502E-15A6-45A7-9797-464090E88B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{832C502E-15A6-45A7-9797-464090E88B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{832C502E-15A6-45A7-9797-464090E88B42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +74,6 @@ Global
 		{E5995DDD-FEC5-495D-A269-27C5D45BF7AA} = {31E7E721-7745-4CA7-9252-89181116CED3}
 		{445FDEB7-9734-4AAF-B0AA-371245415044} = {64339499-9032-4FE1-80EF-CE4909859C6E}
 		{F1C82F33-5A80-4E0C-9B7F-AFC6CCF66CDA} = {5BEA5C70-B830-4FA5-9534-27979554C2D6}
+		{832C502E-15A6-45A7-9797-464090E88B42} = {52613B2A-AB0C-44E5-99D2-BD24DCD8DE6F}
 	EndGlobalSection
 EndGlobal

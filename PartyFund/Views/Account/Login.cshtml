@@ -65,52 +65,120 @@
 <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="color-line"></div>
+
 
 <div class="back-link">
     <a href='@Url.Action("Registration", "User", new { Area = "User"})' class=" btn btn-primary">Back to Dashboard</a>
 </div>
 
-<div class="login-container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="text-center m-b-md">
-                <h3>PLEASE LOGIN TO APP</h3>
-                <small>This is the best app ever!</small>
+@*<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modalEditUserInfo-container"></div>
+    
+</div>*@
+
+<div class="register-container">
+    <div class="hpanel">
+        <div class="panel-heading hbuilt">
+            <div class="panel-tools">
+                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                <a class="closebox"><i class="fa fa-times"></i></a>
             </div>
-            <div class="hpanel">
-                <div class="panel-body">
-                    @using (Html.BeginForm("Login", "Account", FormMethod.Post,
+            Built panel
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6 border-right">
+                  
+                        <div class="text-center m-b-md">
+                            <h3>What's new!</h3>
+                            <small>This is the best app ever!</small>
+                        </div>
+                 
+
+                        
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post,
                                       new { enctype = "multipart/form-data", role = "form", id = "LoginForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        <div class="form-group">
-                            <label class="control-label" for="username">Username or Email</label>
-                            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", required = "required", placeholder = "example@gmail.com" })
-                            <span class="help-block small">Your unique username or email to app</span>
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="form-group">
+                                <label class="control-label" for="username">Username or Email</label>
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", required = "required", placeholder = "example@gmail.com" })
+                                <span class="help-block small">Your unique username or email to app</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">Password</label>
+                                @Html.PasswordFor(x => x.Password, new { id = "pwd", @class = "form-control", required = "required", placeholder = "******" })
+                                <span class="help-block small">Your strong password</span>
+                            </div>
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "i-checks", @checked = "checked" })
+                                Remember login
+                                <p class="help-block small">(if this is a private computer)</p>
+                            </div>
+                            <button class="btn btn-success btn-block" type="submit">Login</button>
+                            <a href='@Url.Action( "Register")' class=" btn btn-default btn-block">Register</a>
+                        }
+                    </div>
+
+                            
+                    
+                <div class="col-lg-6 ">
+                        <div class="text-center m-b-md">
+                            <h3> <b>PLEASE LOGIN </b></h3>
+                            <small>This is the best app ever!</small>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="password">Password</label>
-                            @Html.PasswordFor(x => x.Password, new { id = "pwd", @class = "form-control", required = "required", placeholder = "******" })
-                            <span class="help-block small">Your strong password</span>
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post,
+                                      new { enctype = "multipart/form-data", role = "form", id = "LoginForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="form-group">
+                                <label class="control-label" for="username">Username or Email</label>
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", required = "required", placeholder = "example@gmail.com" })
+                                <span class="help-block small">Your unique username or email to app</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">Password</label>
+                                @Html.PasswordFor(x => x.Password, new { id = "pwd", @class = "form-control", required = "required", placeholder = "******" })
+                                <span class="help-block small">Your strong password</span>
+                            </div>
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "i-checks", @checked = "checked" })
+                                Remember login
+                                <p class="help-block small">(if this is a private computer)</p>
+                            </div>
+                            <button class="btn btn-success btn-block" type="submit">Login</button>
+                            <a href='@Url.Action( "Register")' class=" btn btn-default btn-block">Register</a>
+                        }
+                       
                         </div>
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "i-checks", @checked = "checked" })
-                            @*    <input type="checkbox" class="i-checks" checked>*@
-                            Remember login
-                            <p class="help-block small">(if this is a private computer)</p>
-                        </div>
-                        <button class="btn btn-success btn-block" type="submit">Login</button>
-                        <a class="btn btn-default btn-block" href='@Url.Action("Register")'>Register</a>
-                    }
                 </div>
+                    </div>
+        <div class="panel-footer">
+            This is sta
+        </div>
+                </div>
+
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <strong>HOMER</strong> - AngularJS Responsive WebApp <br /> 2015 Copyright Company Name
-        </div>
-    </div>
-</div>
+
+@section Scripts{
+    <script>
+
+        //this function is used to display modal popup at run time resptive to url
+    //#region To show Add ticket attachments by user on add user ticket button click
+        window.Register = function (id) {
+            id = 1;
+            debugger;
+        id = id.toString();
+        var url = '@Url.Action("Register", "Account", new { @id = "ID" })'.replace("ID", id);
+        //var url = VirtualDirectory + "/Account/Register?id=";
+        $.get(url, function (data) {
+            debugger;
+            $('#modalEditUserInfo-container').html(data);
+            $('#myModal5').modal('show');
+        });
+    }
+    //#endregion
+    </script>
+}

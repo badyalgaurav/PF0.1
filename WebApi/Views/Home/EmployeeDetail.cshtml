@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "EmployeeDetail";
+}
+
+<h2>EmployeeDetail</h2>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        <table id="tblEmployeeDetails">
+            <thead><tr><th>Name</th><th>Age</th><th>Email</th><th>Action</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    </div>
+<script>
+    $(document).ready(function () {
+        $('#tblEmployeeDetails').DataTable(
+            {
+            });
+    });
+</script>

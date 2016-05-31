@@ -12,6 +12,7 @@ namespace PartyFund.Services.Services.Abstraction
     {
 
         IQueryable<UserDetail> GetAllUsers();
+        IQueryable<UserDetail> GetByAdminID(string adminID);
         UserDetail GetByID(string id);
         void Insert(UserDetailViewModel obj);
         void Update(UserDetailViewModel obj);

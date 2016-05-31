@@ -13,9 +13,10 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     @Styles.Render("~/Content/vendor/css")
 </head>
-<body>
+<body class="fixed-navbar">
     <!-- Simple splash screen-->
-    <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Homer - Responsive Admin Theme</h1><p>Special AngularJS Admin Theme for small and medium webapp with very clean and aesthetic style and feel. </p><img src="~/Content/images/loading-bars.svg" width="64" height="64" /> </div> </div>
+    <div class=" splash">
+    <div class="color-line"></div><div class="splash-title"><h1>Homer - Responsive Admin Theme</h1><p>Special AngularJS Admin Theme for small and medium webapp with very clean and aesthetic style and feel. </p><img src="~/Content/images/loading-bars.svg" width="64" height="64" /> </div> </div>
     <!--[if lt IE 7]>
     <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -227,6 +228,7 @@
     <div id="wrapper">
         @RenderSection("featured", required: false)
         @RenderBody()
+
         <!-- Footer-->
         <footer class="footer">
             <span class="pull-right">
@@ -234,8 +236,9 @@
             </span>
             Company 2015-2020
         </footer>
-        </div>
-        @Scripts.Render("~/Content/Vendor/JSFiles")
-        @RenderSection("scripts", required: false)
+    </div>
+    
+    @Scripts.Render("~/Content/Vendor/JSFiles")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

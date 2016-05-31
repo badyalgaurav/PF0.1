@@ -41,6 +41,11 @@ namespace PartyFund.DataAccess.Implementation.Repositories
       var  Id=Convert.ToInt16(id);
         return context.UserDetails.Find(Id);
     }
+    public IQueryable<UserDetail> GetByAdminID(string adminID)
+    {
+        var adminId = Convert.ToInt16(adminID);
+        return context.UserDetails.Where(x => x.ParentID == adminId);
+    }
 
     public void Insert(UserDetailViewModel model)
     {
