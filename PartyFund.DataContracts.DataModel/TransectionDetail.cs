@@ -17,10 +17,10 @@ namespace PartyFund.DataContracts.DataModel
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<decimal> CurrentAmount { get; set; }
-        public Nullable<decimal> WithDraws { get; set; }
+        public Nullable<decimal> TransectionAmount { get; set; }
+        public string Action { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> ActionDate { get; set; }
-        public string ModifiedBy { get; set; }
         public string Notes { get; set; }
     
         public virtual UserDetail UserDetail { get; set; }

@@ -27,10 +27,10 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" />
     <Property Name="CurrentAmount" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="WithDraws" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="TransectionAmount" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="Action" Type="char" MaxLength="1" />
+    <Property Name="DateCreated" Type="datetime" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
-    <Property Name="ActionDate" Type="datetime" />
-    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
     <Property Name="Notes" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="UserDetails">

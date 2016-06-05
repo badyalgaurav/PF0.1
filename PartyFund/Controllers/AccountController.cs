@@ -32,7 +32,7 @@ namespace PartyFund.Controllers
         HttpClient client;
         IUserDetailsServices iUserDetailsServices = null;
         IUserServices iUserServices = null;
-        string url = ConfigurationManager.AppSettings["ApiUrl"]+"User/";
+        string url = ConfigurationManager.AppSettings["ApiUrl"]+"UserApi/";
         public AccountController()
         {
             client = new HttpClient();
@@ -100,7 +100,7 @@ namespace PartyFund.Controllers
 
 
                         FormsAuthentication.Initialize();
-                        var loginTicket = new FormsAuthenticationTicket(1, response.Email, DateTime.Now, DateTime.Now.AddMonths(1),
+                        var loginTicket = new FormsAuthenticationTicket(1,Convert.ToString(response.UserDetailsID),DateTime.Now, DateTime.Now.AddMonths(1),
                             true, userData);
                         var encryptedTicket = FormsAuthentication.Encrypt(loginTicket);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);

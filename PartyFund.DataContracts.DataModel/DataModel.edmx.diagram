@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="217859e2fcf94d2ca31d13a2546ef6e2" Name="Diagram1" ZoomLevel="76">
         <EntityTypeShape EntityType="PartyFundModel.DepositDetail" Width="1.5" PointX="3" PointY="8.5" />
-        <EntityTypeShape EntityType="PartyFundModel.Role" Width="1.5" PointX="3" PointY="13.5" />
-        <EntityTypeShape EntityType="PartyFundModel.TransectionDetail" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="PartyFundModel.Role" Width="1.5" PointX="3" PointY="13" />
+        <EntityTypeShape EntityType="PartyFundModel.TransectionDetail" Width="1.5" PointX="3" PointY="5" />
         <EntityTypeShape EntityType="PartyFundModel.UserDetail" Width="1.5" PointX="0.75" PointY="3.625" />
-        <EntityTypeShape EntityType="PartyFundModel.UserInRole" Width="1.5" PointX="5.25" PointY="5.25" />
-        <EntityTypeShape EntityType="PartyFundModel.User" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="PartyFundModel.UserInRole" Width="1.5" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="PartyFundModel.User" Width="1.5" PointX="3" PointY="1.375" />
         <AssociationConnector Association="PartyFundModel.FK_DepositDetails_UserDetails" />
         <AssociationConnector Association="PartyFundModel.FK_UserInRole_Roles" />
         <AssociationConnector Association="PartyFundModel.FK_OperationDetails_UserDetails" />

@@ -12,6 +12,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Net.Http.Headers;
+using PartyFund.DataContracts.DataModel;
 
 namespace PartyFund.Areas.User.Controllers
 {
@@ -19,10 +20,14 @@ namespace PartyFund.Areas.User.Controllers
     {
         //
         // GET: /User/User/
+        #region Variables
         HttpClient client;
         IUserDetailsServices iUserDetailsServices = null;
         IUserServices iUserServices = null;
-        string url = ConfigurationManager.AppSettings["ApiUrl"] + "User/";
+        string url = ConfigurationManager.AppSettings["ApiUrl"] + "UserApi/";
+        #endregion
+
+        #region Constructor
         public UserController()
         {
             client = new HttpClient();
@@ -32,12 +37,15 @@ namespace PartyFund.Areas.User.Controllers
             iUserDetailsServices = new UserDetailsServices();
             iUserServices = new UserServices();
         }
+        #endregion
 
+        #region Dashboard(Index)
         public ActionResult Index()
         {
+            ViewBag.test = "test";
             return View();
         }
-
+        #endregion
 
         #region GetUsersByAdminID
         /// <summary>
@@ -47,25 +55,47 @@ namespace PartyFund.Areas.User.Controllers
         /// <returns></returns>
         public async Task<JsonResult> GetUsersByAdminID(string adminID)
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url+"GetUsersByAdminID/"+adminID);
+            adminID = User.Identity.Name;
+            HttpResponseMessage responseMessage = await client.GetAsync(url + "GetUsersByAdminID/" + adminID);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
                 var Employees = JsonConvert.DeserializeObject<List<UserDetailViewModel>>(responseData);
 
-                return Json(Employees,JsonRequestBehavior.AllowGet);
+                return Json(Employees, JsonRequestBehavior.AllowGet);
             }
             return Json("Error");
         }
         #endregion
+
+        #region Registration
         [HttpGet]
-        public ActionResult Registration()
+        public async Task<ActionResult> Registration()
         {
+            try
+            {
+                var id = User.Identity.Name;
+                //this is used to send request to web api to get record for a particular user
+                HttpResponseMessage responseMessage = await client.GetAsync(url + "GetByID/" + id);
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<UserDetail>(responseData);
+                    //here viewbag is used to display company name in readonly mode
+                    ViewBag.CompanyName = result.CompanyName;
+                    return View();
+                }
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("Registration");
+            }
+
             return View();
         }
         [HttpPost]
-        public ActionResult Registration(UserDetailViewModel model )
+        public ActionResult Registration(UserDetailViewModel model)
         {
             var password = model.Password;
             var PASSWORD_BCRYPT_COST = 8; // work factor
@@ -79,6 +109,7 @@ namespace PartyFund.Areas.User.Controllers
             iUserDetailsServices.Insert(model);
             return View();
         }
+        #endregion
 
     }
 }

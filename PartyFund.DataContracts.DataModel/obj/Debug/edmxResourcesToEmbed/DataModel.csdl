@@ -57,10 +57,10 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="Int32" />
     <Property Name="CurrentAmount" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="WithDraws" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="TransectionAmount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="Action" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ActionDate" Type="DateTime" Precision="3" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UserDetail" Relationship="PartyFundModel.FK_OperationDetails_UserDetails" FromRole="TransectionDetail" ToRole="UserDetail" />
   </EntityType>

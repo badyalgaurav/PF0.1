@@ -39,7 +39,7 @@ namespace PartyFund.DataAccess.Implementation.Repositories
     public UserDetail GetByID(string id)
     {
       var  Id=Convert.ToInt16(id);
-        return context.UserDetails.Find(Id);
+      return context.UserDetails.Where(x => x.ID == Id).FirstOrDefault(); ;
     }
     public IQueryable<UserDetail> GetByAdminID(string adminID)
     {

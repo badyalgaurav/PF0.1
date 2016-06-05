@@ -14,6 +14,7 @@ using PartyFund.Services.Services.Abstraction;
 using PartyFund.Presentation.UI.Common.ViewModels;
 using PartyFund.DataContracts.DataModel;
 using Newtonsoft.Json;
+using System.Web.Http.Description;
 
 namespace WebApi.Controllers
 {
@@ -68,6 +69,15 @@ namespace WebApi.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
             return response;
+        }
+        #endregion
+
+        #region GetByID( To get a single user record)
+        // GET GetByID
+        [ResponseType(typeof(UserDetail))]
+        public IHttpActionResult GetByID(string id)
+        {
+            return Ok(iUserDetailsServices.GetByID(id));
         }
         #endregion
     }

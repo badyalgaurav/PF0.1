@@ -542,7 +542,7 @@
     <Content Include="Content\vendor\datatables\media\images\sort_desc.png" />
     <Content Include="Content\vendor\datatables\media\images\sort_desc_disabled.png" />
     <Content Include="Content\vendor\datatables\media\js\jquery.dataTables.js" />
-    <Content Include="Content\vendor\datatables\media\js\jquery.dataTables.min.js" />
+    <Content Include="Content\vendor\datatables\media\js\jquery.dataTablesMin.js" />
     <Content Include="Content\vendor\datatables\media\js\jquery.js" />
     <Content Include="Content\vendor\datatables_plugins\api\average%28%29.js" />
     <Content Include="Content\vendor\datatables_plugins\api\column%28%29.title%28%29.js" />
@@ -602,7 +602,7 @@
     <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\2\index.html" />
     <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\3\dataTables.bootstrap.css" />
     <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\3\dataTables.bootstrap.js" />
-    <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\3\dataTables.bootstrap.min.js" />
+    <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\3\dataTables.bootstrapMin.js" />
     <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\3\index.html" />
     <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\images\sort_asc.png" />
     <Content Include="Content\vendor\datatables_plugins\integration\bootstrap\images\sort_asc_disabled.png" />
@@ -1693,7 +1693,7 @@
     <Content Include="Content\vendor\jquery-ui\ui\tooltip.js" />
     <Content Include="Content\vendor\jquery-ui\ui\widget.js" />
     <Content Include="Content\vendor\jquery-validation\._jquery.validate.min.js" />
-    <Content Include="Content\vendor\jquery-validation\jquery.validate.min.js" />
+    <Content Include="Content\vendor\jquery-validation\jqueryValidateMin.js" />
     <Content Include="Content\vendor\jquery.flot.spline\index.js" />
     <Content Include="Content\vendor\jquery\dist\jquery.js" />
     <Content Include="Content\vendor\jquery\dist\jqueryMin.js" />
@@ -2568,6 +2568,7 @@
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\User\Views\User\Index.cshtml" />
     <Content Include="Areas\User\Views\User\Registration.cshtml" />
+    <Content Include="Areas\User\Views\User\_OrganizationPanel.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="LICENSE.txt" />
     <Content Include="Scripts\jquery-1.7.1.js" />
