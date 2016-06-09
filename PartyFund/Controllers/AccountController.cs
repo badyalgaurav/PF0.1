@@ -97,10 +97,10 @@ namespace PartyFund.Controllers
 
                         var serializer = new JavaScriptSerializer();
                         var userData = serializer.Serialize(serializeModel);
-
+                      var requireResoponse=  String.Format("{0}/{1}",response.UserName,response.UserDetailsID);
 
                         FormsAuthentication.Initialize();
-                        var loginTicket = new FormsAuthenticationTicket(1,Convert.ToString(response.UserDetailsID),DateTime.Now, DateTime.Now.AddMonths(1),
+                        var loginTicket = new FormsAuthenticationTicket(1,requireResoponse, DateTime.Now, DateTime.Now.AddMonths(1),
                             true, userData);
                         var encryptedTicket = FormsAuthentication.Encrypt(loginTicket);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
@@ -165,15 +165,21 @@ namespace PartyFund.Controllers
                     var salt = "$2a$" + PASSWORD_BCRYPT_COST + "$" + PASSWORD_SALT;
                     var pwdToHash = password + salt;
                     var hashToStoreInDatabase = BCrypt.Net.BCrypt.HashPassword(pwdToHash, BCrypt.Net.BCrypt.GenerateSalt());
-
+                    model.ParentID = !string.IsNullOrEmpty(User.Identity.Name) ? Convert.ToInt32(User.Identity.Name) : 0;
                     model.Password = hashToStoreInDatabase;
                     model.Salt = PASSWORD_SALT;
                     HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url + "RegisterApi", model);
                     if (responseMessage.IsSuccessStatusCode)
                     {
+                        //here is bit confusion need to make it more robustive
+                        if(!string.IsNullOrEmpty(Convert.ToString( User.Identity.Name)))
+                        {
+                            TempData["message"] = "yes";
+                            return RedirectToAction("Registration", "User", new { area = "User" });
+                        }
                         WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "User", new { area = "User" });
                      //   return RedirectToAction("Index");
                     }
                     return RedirectToAction("Error");
@@ -464,7 +470,7 @@ namespace PartyFund.Controllers
             }
         }
 
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        public static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
             // a full list of status codes.

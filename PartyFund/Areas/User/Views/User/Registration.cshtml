@@ -15,7 +15,7 @@
             </div>
             <div class="hpanel">
                 <div class="panel-body">
-                    @using (Html.BeginForm("Register", "Account", FormMethod.Post,
+                    @using (Html.BeginForm("Registration", "User", FormMethod.Post,
                                       new { enctype = "multipart/form-data", role = "form", id = "registrationForm" }))
                     {
                         @Html.AntiForgeryToken()
@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group col-lg-6">
                                 @Html.LabelFor(x => x.CompanyName)
-                                @Html.TextBoxFor(x => x.CompanyName, new { @class = "form-control", required = "required", @Value = ViewBag.CompanyName, disabled = "disabled" })
+                                @Html.TextBoxFor(x => x.CompanyName, new { @class = "form-control", required = "required", @Value = ViewBag.CompanyName,@readonly="readonly"})
                             </div>
                             <div class="form-group col-lg-6">
                                 @Html.LabelFor(x => x.Password)
@@ -111,9 +111,18 @@
 </div>
 @section Scripts{
     <script>
-        $(function () {
-            jQuery('.showhide').click();
-        });
+    $(function () {
+        jQuery('.showhide').click();
+        debugger;
+        var status = String("@ViewBag.Status");
+        var companyName = String("@ViewBag.companyName");
+        if (status.trim()) {
+            toastr.success('Info - This is a ' + "@ViewBag.Status" + ' custom Homer info notification');
+            $("input[type=text],input[type=email],input[type='password'], textarea").val("");
+            //to give company name to organization field
+            $("#CompanyName").val(companyName);
+        }
+    });
     </script>
 
 }

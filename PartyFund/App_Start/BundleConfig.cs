@@ -36,6 +36,9 @@ namespace PartyFund
                        "~/Content/vendor/sparkline/index.js",
                        "~/Content/vendor/datatables/media/js/jquery.dataTablesMin.js",
                        "~/Content/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrapMin.js",
+                       "~/Content/vendor/toastr/build/toastrMin.js",
+                //toasterOptions(manually options)
+                       "~/Content/scripts/toastrOptions.js",
                 //App Script
                        "~/Content/scripts/homer.js"
                        ));
@@ -47,6 +50,7 @@ namespace PartyFund
                 "~/Content/vendor/animate.css/animate.css",
                 "~/Content/vendor/bootstrap/dist/css/bootstrap.css",
                 "~/Content/vendor/sweetalert/lib/sweet-alert.css",
+                "~/Content/vendor/toastr/build/toastrMin.css",
                 "~/Content/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.css",
                 //App Style
                 "~/Content/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css",

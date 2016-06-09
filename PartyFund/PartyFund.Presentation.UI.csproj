@@ -234,6 +234,7 @@
     <Content Include="Content\images\profile.jpg" />
     <Content Include="Content\scripts\charts.js" />
     <Content Include="Content\scripts\homer.js" />
+    <Content Include="Content\scripts\toastrOptions.js" />
     <Content Include="Content\styles\img\green%402x.png" />
     <Content Include="Content\styles\img\green.png" />
     <Content Include="Content\styles\static_custom.css" />
@@ -2113,8 +2114,8 @@
     <Content Include="Content\vendor\sweetalert\lib\sweet-alert.js" />
     <Content Include="Content\vendor\sweetalert\lib\sweet-alert.min.js" />
     <Content Include="Content\vendor\sweetalert\sweetalert.gif" />
-    <Content Include="Content\vendor\toastr\build\toastr.min.css" />
-    <Content Include="Content\vendor\toastr\build\toastr.min.js" />
+    <Content Include="Content\vendor\toastr\build\toastrMin.css" />
+    <Content Include="Content\vendor\toastr\build\toastrMin.js" />
     <Content Include="Content\vendor\xeditable\bootstrap3-editable\css\bootstrap-editable.css" />
     <Content Include="Content\vendor\xeditable\bootstrap3-editable\img\clear.png" />
     <Content Include="Content\vendor\xeditable\bootstrap3-editable\img\loading.gif" />
@@ -2585,7 +2586,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -50,7 +50,7 @@ namespace PartyFund.DataAccess.Implementation.Repositories
     public void Insert(UserDetailViewModel model)
     {
         var test = model.Password;
-        var userDetails = new UserDetail {FirstName = model.FirstName, MiddleName = model.MiddleName, LastName = model.LastName, CompanyName = model.CompanyName, Address=model.Address,City=model.City,IsActive = true, DateCreated = DateTime.Now, Desgination=model.Desgination, Department=model.Department,Country = model.Country, MobileNumber = model.MobileNumber, };
+        var userDetails = new UserDetail {FirstName = model.FirstName, MiddleName = model.MiddleName, LastName = model.LastName, CompanyName = model.CompanyName, Address=model.Address,City=model.City,IsActive = true, DateCreated = DateTime.Now, Desgination=model.Desgination, Department=model.Department,Country = model.Country, MobileNumber = model.MobileNumber, ParentID = model.ParentID};
         context.UserDetails.Add(userDetails);
         Save();
         model.ID = userDetails.ID;
