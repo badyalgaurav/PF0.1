@@ -9,6 +9,7 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
   public  class CustomPrincipalSerializeModel
     {
       public int ID { get; set; }
+      public int? UserDetailsID { get; set; }
       public string UserName { get; set; }
       public string Email { get; set; }
       public string PlainTextPassword { get; set; }

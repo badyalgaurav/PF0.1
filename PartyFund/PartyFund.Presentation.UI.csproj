@@ -178,10 +178,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\BaseController.cs" />
+    <Compile Include="Infrastructure\BaseViewPage.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Angular\Scripts\angularMin.js" />
     <Content Include="Content\fonts\pe-icon-7-stroke\css\helper.css" />
     <Content Include="Content\fonts\pe-icon-7-stroke\css\pe-icon-7-stroke.css" />
     <Content Include="Content\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
@@ -2570,6 +2573,7 @@
     <Content Include="Areas\User\Views\User\Index.cshtml" />
     <Content Include="Areas\User\Views\User\Registration.cshtml" />
     <Content Include="Areas\User\Views\User\_OrganizationPanel.cshtml" />
+    <Content Include="Areas\User\Views\User\_CreditDebitUserAmount.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="LICENSE.txt" />
     <Content Include="Scripts\jquery-1.7.1.js" />

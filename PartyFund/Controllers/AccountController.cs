@@ -46,6 +46,7 @@ namespace PartyFund.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -58,9 +59,10 @@ namespace PartyFund.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+       
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-
+          
             //while login user can use email as well username
             using (var context = new PartyFundEntities())
             {
@@ -89,6 +91,7 @@ namespace PartyFund.Controllers
                         var serializeModel = new CustomPrincipalSerializeModel
                         {
                             ID = response.ID,
+                            UserDetailsID= response.UserDetailsID,
                             UserName = response.UserName,
                             Email = response.Email,
                             PlainTextPassword = model.Password, //storing it for auto login once user logged in to the system
@@ -97,20 +100,28 @@ namespace PartyFund.Controllers
 
                         var serializer = new JavaScriptSerializer();
                         var userData = serializer.Serialize(serializeModel);
-                      var requireResoponse=  String.Format("{0}/{1}",response.UserName,response.UserDetailsID);
+
+                        #region merging the string to take more than one record
+                        //var requireResoponse=  String.Format("{0}/{1}",response.UserName,response.UserDetailsID);
+                        //string[] words = User.Identity.Name.Split('/');
+                        //var UserName = words[0];
+                        #endregion
 
                         FormsAuthentication.Initialize();
-                        var loginTicket = new FormsAuthenticationTicket(1,requireResoponse, DateTime.Now, DateTime.Now.AddMonths(1),
+                        var loginTicket = new FormsAuthenticationTicket(1, response.UserName, DateTime.Now, DateTime.Now.AddMonths(1),
                             true, userData);
                         var encryptedTicket = FormsAuthentication.Encrypt(loginTicket);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                         Response.Cookies.Add(cookie);
+                        var test = HttpContext.User.Identity.Name;
+                       
+                        TempData["UserName"] = response.UserName;
                         if (roleID == 1)
                         {
-                            return RedirectToAction("Registration", "User", new { area = "User" });
+                            
+                            return RedirectToAction("Index", "User", new { area = "User" });
                         }
-                        return RedirectToAction("OpenJobs", "Home", new { area = "Mechanic" });
-                        //}
+                        return RedirectToAction("Index", "User", new { area = "User" });
                     }
                 }
 
@@ -122,14 +133,16 @@ namespace PartyFund.Controllers
 
         //
         // POST: /Account/LogOff
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        /// <summary>
+        /// Logoff
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
+            Session.Abandon();
+            FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account", new { @area = "" });
         }
 
         //
@@ -165,22 +178,18 @@ namespace PartyFund.Controllers
                     var salt = "$2a$" + PASSWORD_BCRYPT_COST + "$" + PASSWORD_SALT;
                     var pwdToHash = password + salt;
                     var hashToStoreInDatabase = BCrypt.Net.BCrypt.HashPassword(pwdToHash, BCrypt.Net.BCrypt.GenerateSalt());
-                    model.ParentID = !string.IsNullOrEmpty(User.Identity.Name) ? Convert.ToInt32(User.Identity.Name) : 0;
                     model.Password = hashToStoreInDatabase;
                     model.Salt = PASSWORD_SALT;
                     HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url + "RegisterApi", model);
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                        //here is bit confusion need to make it more robustive
-                        if(!string.IsNullOrEmpty(Convert.ToString( User.Identity.Name)))
-                        {
-                            TempData["message"] = "yes";
-                            return RedirectToAction("Registration", "User", new { area = "User" });
-                        }
-                        WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.Logout();
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
+                    string[] words = User.Identity.Name.Split('/');
+                    var UserName = words[0];
+                    TempData["UserName"] = UserName;
                     return RedirectToAction("Index", "User", new { area = "User" });
-                     //   return RedirectToAction("Index");
                     }
                     return RedirectToAction("Error");
                     //iUserDetailsServices.Insert(model);
@@ -508,5 +517,17 @@ namespace PartyFund.Controllers
             }
         }
         #endregion
+        /// <summary>
+        /// Dispose connection
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            using (var context= new PartyFundEntities())
+            {
+           context.Dispose();
+            base.Dispose(disposing);
+                }
+        }
     }
 }

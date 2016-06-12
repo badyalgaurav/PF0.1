@@ -14,10 +14,11 @@ using System.Configuration;
 using System.Net.Http.Headers;
 using PartyFund.DataContracts.DataModel;
 using System.Web.Security;
+using PartyFund.Controllers;
 
 namespace PartyFund.Areas.User.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         //
         // GET: /User/User/
@@ -76,6 +77,7 @@ namespace PartyFund.Areas.User.Controllers
         {
             try
             {
+                //split the user Cookie to get userdetailsID
                 string[] words = User.Identity.Name.Split('/');
                   var id = words[1];
                 //this is used to send request to web api to get record for a particular user
@@ -106,8 +108,9 @@ namespace PartyFund.Areas.User.Controllers
                 // Attempt to register the user
                 try
                 {
-                  string[] words = User.Identity.Name.Split('/');
-                  var parentId = words[1];
+                   
+                    string[] words = User.Identity.Name.Split('/');
+                    var parentId = words[1];
                     var password = model.Password;
                     var PASSWORD_BCRYPT_COST = 8; // work factor
                     var PASSWORD_SALT = Utility.GetSalt(); //generated random salt
@@ -137,6 +140,14 @@ namespace PartyFund.Areas.User.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        #endregion
+
+        #region CreditDebitAmount
+        //view name change to _CreditDebitUserAmount
+        public ActionResult CreditDebitUserAmount()
+        {
+            return View("~/Areas/User/Views/User/_CreditDebitUserAmount.cshtml");
         }
         #endregion
 

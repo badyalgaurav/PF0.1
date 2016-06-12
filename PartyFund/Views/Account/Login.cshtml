@@ -96,7 +96,7 @@
                  
 
                         
-                        @using (Html.BeginForm("Login", "Account", FormMethod.Post,
+                        @*@using (Html.BeginForm("Login", "Account", FormMethod.Post,
                                       new { enctype = "multipart/form-data", role = "form", id = "LoginForm" }))
                         {
                             @Html.AntiForgeryToken()
@@ -115,10 +115,10 @@
                                 @Html.CheckBoxFor(m => m.RememberMe, new { @class = "i-checks", @checked = "checked" })
                                 Remember login
                                 <p class="help-block small">(if this is a private computer)</p>
-                            </div>
-                            <button class="btn btn-success btn-block" type="submit">Login</button>
-                            <a href='@Url.Action( "Register")' class=" btn btn-default btn-block">Register</a>
-                        }
+                            </div>*@
+                            @*<button class="btn btn-success btn-block" type="submit">Login</button>
+                            <a href='@Url.Action( "Register")' class=" btn btn-default btn-block">Register</a>*@
+                     @*   }*@
                     </div>
 
                             

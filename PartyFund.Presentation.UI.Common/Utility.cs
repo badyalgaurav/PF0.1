@@ -54,5 +54,8 @@ namespace PartyFund.Presentation.UI.Common
             // Return the string encoded salt
             return Convert.ToBase64String(salt);
         }
+
+     
+
     }
 }

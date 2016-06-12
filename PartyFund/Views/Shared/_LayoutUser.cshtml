@@ -154,7 +154,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="login.html">
+                        <a href='@Url.Action("LogOff", "Account", new { area = "" })'>
                             <i class="pe-7s-upload pe-rotate-90"></i>
                         </a>
                     </li>
@@ -172,7 +172,7 @@
                 </a>
 
                 <div class="stats-label text-color">
-                    <span class="font-extra-bold font-uppercase">Robert Razer</span>
+                    <span class="font-extra-bold font-uppercase">@User.Identity.Name</span>
 
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">

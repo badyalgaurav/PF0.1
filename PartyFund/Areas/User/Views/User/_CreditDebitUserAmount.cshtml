@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "CreditDebitAmount";
+    ViewBag.sign= "+" ;
+}
+@model PartyFund.Presentation.UI.Common.ViewModels.TransectionDetailViewModel
+@*<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
+<script src="~/Content/Angular/Scripts/angularMin.js"></script>
+<div class="modal-dialog ">
+    <div class="modal-content">
+        <div class="color-line"></div>
+        <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <small class="font-bold">Lorem Ipsum is simply dummy text.</small>
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-12" ng-app="">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Account Name</label>
+                            <div class="col-lg-9"><input type="text" class="form-control" readonly></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Current Amount</label>
+                            <div class="col-lg-9"><input type="number" class="form-control" ng-model="currentAmount" ></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Insert Amount</label>
+                            <div class="col-lg-9"><input type="number" ng-model="InsertedAmount" class="form-control"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-lg-3 col-lg-offset-6 control-label">Total Amount</label>
+                            <div class="col-lg-3"><input type="number" class="form-control" value="{{ currentAmount @ViewBag.sign InsertedAmount }}" readonly></div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+                
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>

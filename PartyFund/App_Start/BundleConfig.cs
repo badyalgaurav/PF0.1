@@ -39,6 +39,8 @@ namespace PartyFund
                        "~/Content/vendor/toastr/build/toastrMin.js",
                 //toasterOptions(manually options)
                        "~/Content/scripts/toastrOptions.js",
+                //AngularMin.js
+                       //"~/Content/Angular/Scripts/angularMin.js",
                 //App Script
                        "~/Content/scripts/homer.js"
                        ));
