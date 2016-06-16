@@ -43,7 +43,6 @@ namespace WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 iUserDetailsServices.Insert(model);
                 iUserServices.Insert(model);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, model);
@@ -64,6 +63,7 @@ namespace WebApi.Controllers
         public IEnumerable<UserDetail> GetUsersByAdminID(string adminID)
         {
             List<UserDetail> response = iUserDetailsServices.GetByAdminID(adminID).ToList();
+            
             if (response == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

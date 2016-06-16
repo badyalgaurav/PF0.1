@@ -32,6 +32,7 @@
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
     <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsDeleted" Type="bit" />
   </EntityType>
   <EntityType Name="UserDetails">
     <Key>

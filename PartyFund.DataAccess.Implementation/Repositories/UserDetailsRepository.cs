@@ -12,7 +12,7 @@ using PartyFund.Presentation.UI.Common.ViewModels;
 namespace PartyFund.DataAccess.Implementation.Repositories
 {
     //BaseRepository<UserDetail>,
-  public  class UserDetailsRepository :  IUserDetailsRepository
+  public  class UserDetailsRepository :IUserDetailsRepository,IDisposable
     {
       //need to create constructor when generic class has to inherit
       //public UserDetailsRepository(DbContext context) : base() {
@@ -25,6 +25,7 @@ namespace PartyFund.DataAccess.Implementation.Repositories
         this.context = new PartyFundEntities();
     }
 
+  
     public UserDetailsRepository(PartyFundEntities db)
     {
         this.context = db;
@@ -73,7 +74,7 @@ namespace PartyFund.DataAccess.Implementation.Repositories
         context.SaveChanges();
     }
     private bool disposed = false;
-    protected virtual void Dispose(bool disposing)
+    protected virtual  void Dispose(bool disposing)
     {
         if (!this.disposed)
         {

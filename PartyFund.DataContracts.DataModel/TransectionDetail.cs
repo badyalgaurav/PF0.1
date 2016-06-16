@@ -22,6 +22,7 @@ namespace PartyFund.DataContracts.DataModel
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string CreatedBy { get; set; }
         public string Notes { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         public virtual UserDetail UserDetail { get; set; }
     }

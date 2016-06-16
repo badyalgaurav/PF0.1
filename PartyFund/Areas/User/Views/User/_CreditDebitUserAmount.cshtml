@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "CreditDebitAmount";
-    ViewBag.sign= "+" ;
+  
 }
 @model PartyFund.Presentation.UI.Common.ViewModels.TransectionDetailViewModel
 @*<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
@@ -18,21 +18,21 @@
                 <div class="col-lg-12" ng-app="">
                     <form method="get" class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">Account Name</label>
-                            <div class="col-lg-9"><input type="text" class="form-control" readonly></div>
+                            <label class="col-lg-2 control-label">Account Name</label>
+                            <div class="col-lg-10"><input type="text" class="form-control" value="@Model.UserName" readonly></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">Current Amount</label>
-                            <div class="col-lg-9"><input type="number" class="form-control" ng-model="currentAmount" ></div>
+                            <label class="col-lg-2 control-label">Current Amount</label>
+                            <div class="col-lg-10"><input type="number" value="@Model.CurrentAmount" class="form-control" ng-model="@Model.CurrentAmount" readonly></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">Insert Amount</label>
-                            <div class="col-lg-9"><input type="number" ng-model="InsertedAmount" class="form-control"></div>
+                            <label class="col-lg-2 control-label">@ViewBag.action</label>
+                            <div class="col-lg-10"><input type="number"  ng-model="InsertedAmount" class="form-control" max="100000" min="0"></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-lg-3 col-lg-offset-6 control-label">Total Amount</label>
-                            <div class="col-lg-3"><input type="number" class="form-control" value="{{ currentAmount @ViewBag.sign InsertedAmount }}" readonly></div>
+                            <div class="col-lg-3"><input type="number" class="form-control" value="{{ @Model.CurrentAmount @ViewBag.sign InsertedAmount }}" readonly></div>
                         </div>
                     </form>
                 </div>

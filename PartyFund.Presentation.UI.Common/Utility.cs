@@ -55,7 +55,7 @@ namespace PartyFund.Presentation.UI.Common
             return Convert.ToBase64String(salt);
         }
 
-     
+      
 
     }
 }

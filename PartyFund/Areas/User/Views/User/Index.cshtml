@@ -98,47 +98,49 @@
     @section Scripts{
         @*JavaScriptCode inside*@
         <script>
-            $('#tblUsersList').dataTable();
+    $('#tblUsersList').dataTable();
+    debugger;
+    if ("@TempData["UserName"]") {
+        toastr.success('Welcome <b>' + "@TempData["UserName"]" + '</b>');
+    }
+    //#region To show Add ticket attachments by user on add user ticket button click
+    //this function is used to display modal popup at run time resptive to url
+    window.addAmount = function (id) {
+        debugger;
+        id = id.toString();
+        var url = '@Url.Action("CreditDebitUserAmount", "User", new { @id = "ID"})'.replace("ID", id);
+        //var url = VirtualDirectory + "/Account/Register?id=";
+        var data = { id: id, param: "add" };
+        $.get(url,
+            data, function (data) {
             debugger;
-            if("@TempData["UserName"]")
-            {
-                toastr.success('Welcome <b>' + "@TempData["UserName"]"+'</b>' );
-            }
-            //#region To show Add ticket attachments by user on add user ticket button click
-            //this function is used to display modal popup at run time resptive to url
-            window.addAmount = function (id) {
-                debugger;
-                id = id.toString();
-                var url = '@Url.Action("CreditDebitUserAmount", "User", new { @id = "ID" })'.replace("ID", id);
-                //var url = VirtualDirectory + "/Account/Register?id=";
-                $.get(url, function (data) {
-                    debugger;
-                    $('#addAmountContainer').html(data);
-                    $('#addUserAmountContainer').addClass(' hmodal-success');
-                    $('#addUserAmountContainer').modal('show');
-                });
-            }
-            //#endregion
+            $('#addAmountContainer').html(data);
+            $('#addUserAmountContainer').addClass(' hmodal-success');
+            $('#addUserAmountContainer').modal('show');
+        });
+    }
+    //#endregion
 
-            //#region To show Add ticket attachments by user on add user ticket button click
-            window.subtractAmount = function (id) {
-                debugger;
-                id = id.toString();
-                var url = '@Url.Action("CreditDebitUserAmount", "User", new { @id = "ID" })'.replace("ID", id);
-                //var url = VirtualDirectory + "/Account/Register?id=";
-                $.get(url, function (data) {
-                    debugger;
-                    $('#addAmountContainer').html(data);
-                    $('#addUserAmountContainer').addClass(' hmodal-warning');
-                    $('#addUserAmountContainer').modal('show');
-                });
-            }
-            //#endregion
+    //#region To show Add ticket attachments by user on add user ticket button click
+    window.subtractAmount = function (id) {
+        debugger;
+        id = id.toString();
+        var data = { id: id, param: "subtract" };
+        var url = '@Url.Action("CreditDebitUserAmount", "User", new { @id = "ID" })'.replace("ID", id);
+        //var url = VirtualDirectory + "/Account/Register?id=";
+        $.get(url, data, function (data) {
+            debugger;
+            $('#addAmountContainer').html(data);
+            $('#addUserAmountContainer').addClass(' hmodal-warning');
+            $('#addUserAmountContainer').modal('show');
+        });
+    }
+    //#endregion
 
-            //#region reload page after closing modal
-            $('#addUserAmountContainer').on('hidden.bs.modal', function () {
-                location.reload();
-            })
-            //#endregion
+    //#region reload page after closing modal
+    $('#addUserAmountContainer').on('hidden.bs.modal', function () {
+        location.reload();
+    })
+    //#endregion
         </script>
     }

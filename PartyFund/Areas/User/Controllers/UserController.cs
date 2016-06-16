@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using PartyFund.DataContracts.DataModel;
 using System.Web.Security;
 using PartyFund.Controllers;
+using PartyFund.Infrastructure;
 
 namespace PartyFund.Areas.User.Controllers
 {
@@ -145,11 +146,49 @@ namespace PartyFund.Areas.User.Controllers
 
         #region CreditDebitAmount
         //view name change to _CreditDebitUserAmount
-        public ActionResult CreditDebitUserAmount()
+        public async Task<ActionResult> CreditDebitUserAmount(string id, string param)
         {
-            return View("~/Areas/User/Views/User/_CreditDebitUserAmount.cshtml");
+        
+            var userID = "1014";
+     //       TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
+          var  transectionDetails = await GetTransectionDetailsByUserID(userID);
+            var test = User.UserDetailsID;
+            if (param == "add")
+            {
+                ViewBag.sign = "+";
+                ViewBag.action = "Credit Amount";
+            }
+            else
+            {
+                ViewBag.sign = "-";
+                ViewBag.action = "Deducted Amount";
+
+            }
+            
+            return View("~/Areas/User/Views/User/_CreditDebitUserAmount.cshtml",transectionDetails);
         }
         #endregion
+
+        public async Task<TransectionDetailViewModel> GetTransectionDetailsByUserID(string userID)
+        {
+            TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
+            #region to call GetTransectionDetailsByUserID
+            //Create URL
+            string url = BaseUtility.GetApiUrl("TransectionDetailsAPI", "GetTransectionDetailsByUserID");
+            url = string.Format(url + "?userID={0}", userID);
+
+            //Invoke API
+            HttpResponseMessage messageTypeList = await BaseUtility.CallGetAPI(url);
+
+            //Check API response
+            if (messageTypeList.IsSuccessStatusCode)
+            {
+                var jsonString = await messageTypeList.Content.ReadAsStringAsync();
+                transectionDetails = JsonConvert.DeserializeObject<TransectionDetailViewModel>(jsonString);
+            }
+            #endregion
+            return transectionDetails;
+        }
 
     }
 }

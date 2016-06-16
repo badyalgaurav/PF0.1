@@ -26,6 +26,7 @@
     <EntitySetMapping Name="TransectionDetails">
       <EntityTypeMapping TypeName="PartyFundModel.TransectionDetail">
         <MappingFragment StoreEntitySet="TransectionDetails">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Notes" ColumnName="Notes" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
