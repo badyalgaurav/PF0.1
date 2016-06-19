@@ -52,7 +52,7 @@ namespace PartyFund.DataAccess.Implementation.Repositories
                             join
                                 q in context.UserDetails on p.UserID equals q.ID
                             join r in context.Users on q.ID equals r.UserDetailsID
-                            select new TransectionDetailViewModel { CurrentAmount = p.CurrentAmount, UserName = r.UserName, DateCreated = p.DateCreated }).OrderByDescending(x=>x.DateCreated).FirstOrDefault();
+                            select new TransectionDetailViewModel { CurrentAmount = p.CurrentAmount, UserName = r.UserName, DateCreated = p.DateCreated,UserID = p.UserID }).OrderByDescending(x=>x.DateCreated).FirstOrDefault();
             return response;
         }
         #endregion
@@ -64,7 +64,7 @@ namespace PartyFund.DataAccess.Implementation.Repositories
         /// <param name="model"></param>
         public void Insert(TransectionDetailViewModel model)
         {
-            var transectionDetails = new TransectionDetail { CurrentAmount = model.TotalAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = model.CreatedBy, UserID = model.UserID };
+            var transectionDetails = new TransectionDetail { CurrentAmount = model.TotalAmount, TransectionAmount= model.TransectionAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = model.CreatedBy, UserID = model.UserID };
             context.TransectionDetails.Add(transectionDetails);
             Save();
         }

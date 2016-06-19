@@ -37,6 +37,7 @@ namespace PartyFund
                        "~/Content/vendor/datatables/media/js/jquery.dataTablesMin.js",
                        "~/Content/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrapMin.js",
                        "~/Content/vendor/toastr/build/toastrMin.js",
+                       "~/Content/scripts/ajaxLoader.js",
                 //toasterOptions(manually options)
                        "~/Content/scripts/toastrOptions.js",
                 //AngularMin.js
@@ -55,6 +56,8 @@ namespace PartyFund
                 "~/Content/vendor/toastr/build/toastrMin.css",
                 "~/Content/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.css",
                 //App Style
+                //ajaxLoader
+                "~/Content/styles/ajaxLoader.css",
                 "~/Content/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css",
                 "~/Content/fonts/pe-icon-7-stroke/css/helper.css",
                 "~/Content/styles/style.css"

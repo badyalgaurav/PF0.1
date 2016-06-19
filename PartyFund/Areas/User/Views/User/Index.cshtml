@@ -2,6 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
+
 <div class="content animate-panel zoomIn">
     @*RenderPartial will be used to reuse the same function*@ 
     @{Html.RenderPartial("_OrganizationPanel");}
@@ -98,11 +99,13 @@
     @section Scripts{
         @*JavaScriptCode inside*@
         <script>
+                
     $('#tblUsersList').dataTable();
     debugger;
     if ("@TempData["UserName"]") {
         toastr.success('Welcome <b>' + "@TempData["UserName"]" + '</b>');
     }
+
     //#region To show Add ticket attachments by user on add user ticket button click
     //this function is used to display modal popup at run time resptive to url
     window.addAmount = function (id) {
@@ -141,6 +144,17 @@
     $('#addUserAmountContainer').on('hidden.bs.modal', function () {
         location.reload();
     })
-    //#endregion
+            //#endregion
+
+    $(document).ready(function () {
+        $("#insertedAmount").keypress(function (e) {
+            if (e.which == 13) {
+                alert('You pressed enter!');
+            }
+        });
+    });
+  
+            //endregion
+    
         </script>
     }

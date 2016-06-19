@@ -42,6 +42,19 @@ namespace WebApi.Controllers
             return this.Request.CreateResponse(HttpStatusCode.OK, response);
         }
         #endregion
+          #region GetTransectionDetailsByUserID
+        [AcceptVerbs("POST")]
+        [ActionName("InsertTransectionRecord")]
+        public HttpResponseMessage InsertTransectionRecord(TransectionDetailViewModel obj)
+        {
+             transectionDetailsRepository.Insert(obj);
 
+            //if (response == null)
+            //{
+            //    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+            //}
+            return this.Request.CreateResponse(HttpStatusCode.OK);
+        }
+          #endregion
     }
 }

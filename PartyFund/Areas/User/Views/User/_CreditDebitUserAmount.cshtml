@@ -1,10 +1,11 @@
 ﻿@{
     ViewBag.Title = "CreditDebitAmount";
-  
+    <script src="~/Content/Angular/Scripts/angularMin.js"></script>
 }
 @model PartyFund.Presentation.UI.Common.ViewModels.TransectionDetailViewModel
 @*<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
-<script src="~/Content/Angular/Scripts/angularMin.js"></script>
+
+
 <div class="modal-dialog ">
     <div class="modal-content">
         <div class="color-line"></div>
@@ -16,32 +17,54 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-12" ng-app="">
-                    <form method="get" class="form-horizontal">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", id = "registerationForm" }))
+                    {
+                        @*<form  class="form-horizontal" role="form" id="transectionForm">*@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Account Name</label>
-                            <div class="col-lg-10"><input type="text" class="form-control" value="@Model.UserName" readonly></div>
+                            <div class="col-lg-10">
+
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Current Amount</label>
-                            <div class="col-lg-10"><input type="number" value="@Model.CurrentAmount" class="form-control" ng-model="@Model.CurrentAmount" readonly></div>
+                            <div class="col-lg-10">
+                                <input type="number"  value="@Model.CurrentAmount" ng-model="@Model.CurrentAmount" class="form-control" />
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">@ViewBag.action</label>
-                            <div class="col-lg-10"><input type="number"  ng-model="InsertedAmount" class="form-control" max="100000" min="0"></div>
+                            <div class="col-lg-10"><input type="number" id="insertedAmount" ng-value="0" ng-model="InsertedAmount" class="form-control" max="100000" min="0"></div>
+                            @Html.HiddenFor(x => x.TransectionAmount)
+
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-lg-3 col-lg-offset-6 control-label">Total Amount</label>
-                            <div class="col-lg-3"><input type="number" class="form-control" value="{{ @Model.CurrentAmount @ViewBag.sign InsertedAmount }}" readonly></div>
+                            <div class="col-lg-3">
+                                <input type="number" id="totalAmount" value="{{(@Model.CurrentAmount - 0) @ViewBag.sign  (InsertedAmount -0) }}" class="form-control" readonly>
+                                @Html.HiddenFor(x => x.TotalAmount)
+                                @Html.HiddenFor(x => x.UserID)
+                            </div>
                         </div>
-                    </form>
+                        @*</form>*@
+                    }
                 </div>
                 </div>
             </div>
                 
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" onclick="Update(this.id);" id="@Model.UserID" class="btn btn-primary">Save changes</button>
         </div>
     </div>
 </div>
+<script>
+    //relocationUrl is used inside creditDebitAmountViewJS to relocate to action
+    var relocationUrl = '@Url.Action("Index", "User", new { area="User"})';
+</script>
+<script src="~/Scripts/Area/User/Users/creditDebitAmountViewJS.js?0000.01"></script>
+@section Scripts{
+    @*its not working in modal popup*@
+}

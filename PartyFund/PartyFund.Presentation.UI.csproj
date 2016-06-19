@@ -235,12 +235,15 @@
     <Content Include="Content\images\loading-bars.svg" />
     <Content Include="Content\images\p1.jpg" />
     <Content Include="Content\images\p2.jpg" />
+    <Content Include="Content\images\Preloader_3.gif" />
     <Content Include="Content\images\profile.jpg" />
     <Content Include="Content\scripts\charts.js" />
     <Content Include="Content\scripts\homer.js" />
+    <Content Include="Content\scripts\ajaxLoader.js" />
     <Content Include="Content\scripts\toastrOptions.js" />
     <Content Include="Content\styles\img\green%402x.png" />
     <Content Include="Content\styles\img\green.png" />
+    <Content Include="Content\styles\ajaxLoader.css" />
     <Content Include="Content\styles\static_custom.css" />
     <Content Include="Content\styles\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -2577,6 +2580,7 @@
     <Content Include="Areas\User\Views\User\_CreditDebitUserAmount.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="LICENSE.txt" />
+    <Content Include="Scripts\Area\User\Users\creditDebitAmountViewJS.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -2636,6 +2640,7 @@
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Home\View1.cshtml" />
     <Content Include="Views\Account\_AddEditUser.cshtml" />
+    <Content Include="Views\Shared\_LayoutPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
