@@ -16,6 +16,7 @@ using PartyFund.DataContracts.DataModel;
 using System.Web.Security;
 using PartyFund.Controllers;
 using PartyFund.Infrastructure;
+using PartyFund.Presentation.UI.Common.Helpers;
 
 namespace PartyFund.Areas.User.Controllers
 {
@@ -188,6 +189,46 @@ namespace PartyFund.Areas.User.Controllers
             }
             #endregion
             return transectionDetails;
+        }
+        public async Task<JsonResult> GetUsersByAdminIdDT(JqueryDataTableModel param)
+        {
+            var userID=User.UserDetailsID;
+            //for sorting
+            var sortDirection = Request["sSortDir_0"];//asc or desc
+            var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);//Get Sorting Index of Column
+            var dateFields = Request["sSearch_2"];//Get Sorting Index of Column
+            int iDisplayLength = param.iDisplayLength;
+                #region to call GetTransectionDetailsByUserID
+            //Create URL
+            string url = BaseUtility.GetApiUrl("UserApi", "GetUsersByAdminID");
+            url = string.Format(url + "?adminID={0}", userID);
+
+            //Invoke API
+            HttpResponseMessage messageTypeList = await BaseUtility.CallGetAPI(url);
+            List<GetUsersByAdminID_Result> result = null;
+            //Check API response
+            if (messageTypeList.IsSuccessStatusCode)
+            {
+                var jsonString = await messageTypeList.Content.ReadAsStringAsync();
+                result = JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result>>(jsonString);
+            }
+            #endregion
+         // var response = 
+              //concatAllEquipment.OrderBy(x => x.IsSignIn).ThenBy(x => x.ItemDate);
+            //IEnumerable<string[]> response = from c in result
+            //                                 select new[] { Convert.ToString(c.Equipment), string.Format("{0:d}", c.ItemDate), c.Job, (c.IsSignIn == false ? "false" : "true"), null, null, c.EquipmentClass };
+            ////c.EquipmentClass
+            
+            var response = result.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
+
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = result.Count,
+                iTotalDisplayRecords = result.Count,
+                aaData = response,
+
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -15,19 +15,21 @@ using PartyFund.Presentation.UI.Common.ViewModels;
 using PartyFund.DataContracts.DataModel;
 using Newtonsoft.Json;
 using System.Web.Http.Description;
+using PartyFund.DataAccess.Implementation.Abstraction;
+using PartyFund.DataAccess.Implementation.Repositories;
 
 namespace WebApi.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserApiController : ApiController
     {
-        IUserDetailsServices iUserDetailsServices = null;
-        IUserServices iUserServices = null;
+        IUserDetailsRepository userDetailsRepository = null;
+        IUserRepository userRepository = null;
         #region Constructor
         public UserApiController()
         {
-            iUserDetailsServices = new UserDetailsServices();
-            iUserServices = new UserServices();
+            userDetailsRepository = new UserDetailsRepository();
+            userRepository = new UserRepository();
              
         }
         #endregion
@@ -43,8 +45,8 @@ namespace WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                iUserDetailsServices.Insert(model);
-                iUserServices.Insert(model);
+                userDetailsRepository.Insert(model);
+                userRepository.Insert(model);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, model);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = model.ID }));
                 return response;
@@ -60,9 +62,9 @@ namespace WebApi.Controllers
         /// <param name="adminID"></param>
         /// <returns>return list of users added by admin </returns>
         [HttpGet]
-        public IEnumerable<UserDetail> GetUsersByAdminID(string adminID)
+        public IOrderedQueryable<GetUsersByAdminID_Result> GetUsersByAdminID(string adminID)
         {
-            List<UserDetail> response = iUserDetailsServices.GetByAdminID(adminID).ToList();
+            var response = userDetailsRepository.GetByAdminID(adminID);
             
             if (response == null)
             {
@@ -77,7 +79,7 @@ namespace WebApi.Controllers
         [ResponseType(typeof(UserDetail))]
         public IHttpActionResult GetByID(string id)
         {
-            return Ok(iUserDetailsServices.GetByID(id));
+            return Ok(userDetailsRepository.GetByID(id));
         }
         #endregion
     }

@@ -1,11 +1,16 @@
 ﻿@{
     ViewBag.Title = "CreditDebitAmount";
-    <script src="~/Content/Angular/Scripts/angularMin.js"></script>
+    
 }
-@model PartyFund.Presentation.UI.Common.ViewModels.TransectionDetailViewModel
-@*<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>*@
 
+  <script src="~/Content/Angular/Scripts/angularMin.js"></script>
+        @model PartyFund.Presentation.UI.Common.ViewModels.TransectionDetailViewModel
+        @*<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
 
+<script type="text/javascript">
+  
+</script>
 <div class="modal-dialog ">
     <div class="modal-content">
         <div class="color-line"></div>
@@ -53,7 +58,7 @@
                 </div>
                 </div>
             </div>
-                
+
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="button" onclick="Update(this.id);" id="@Model.UserID" class="btn btn-primary">Save changes</button>
@@ -61,10 +66,11 @@
     </div>
 </div>
 <script>
+ 
     //relocationUrl is used inside creditDebitAmountViewJS to relocate to action
     var relocationUrl = '@Url.Action("Index", "User", new { area="User"})';
 </script>
-<script src="~/Scripts/Area/User/Users/creditDebitAmountViewJS.js?0000.01"></script>
+<script src="~/Scripts/Area/User/Users/creditDebitAmountViewJS.js"></script>
 @section Scripts{
     @*its not working in modal popup*@
 }

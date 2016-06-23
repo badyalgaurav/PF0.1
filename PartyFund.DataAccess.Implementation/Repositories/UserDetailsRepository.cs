@@ -42,10 +42,11 @@ namespace PartyFund.DataAccess.Implementation.Repositories
       var  Id=Convert.ToInt16(id);
       return context.UserDetails.Where(x => x.ID == Id).FirstOrDefault(); ;
     }
-    public IQueryable<UserDetail> GetByAdminID(string adminID)
+    public IOrderedQueryable<GetUsersByAdminID_Result> GetByAdminID(string adminID)
     {
         var adminId = Convert.ToInt16(adminID);
-        return context.UserDetails.Where(x => x.ParentID == adminId);
+        var result= context.GetUsersByAdminID(adminId).AsQueryable().OrderByDescending(x=>x.ID);
+        return result  ;
     }
 
     public void Insert(UserDetailViewModel model)

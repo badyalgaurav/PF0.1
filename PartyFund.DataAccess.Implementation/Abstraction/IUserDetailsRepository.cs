@@ -11,7 +11,7 @@ namespace PartyFund.DataAccess.Implementation.Abstraction
     public interface IUserDetailsRepository
     {
         IQueryable<UserDetail> GetAllUsers();
-        IQueryable<UserDetail> GetByAdminID(string adminID);
+        IOrderedQueryable<GetUsersByAdminID_Result> GetByAdminID(string adminID);
         UserDetail GetByID(string id);
         void Insert(UserDetailViewModel obj);
         void Update(UserDetailViewModel obj);

@@ -39,5 +39,6 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
         public string ModifiedBy { get; set; }
         public bool IsDeleted { get; set; }
         public int ParentID { get; set; }
+        public Nullable<decimal> CurrentAmount { get; set; }
     }
 }

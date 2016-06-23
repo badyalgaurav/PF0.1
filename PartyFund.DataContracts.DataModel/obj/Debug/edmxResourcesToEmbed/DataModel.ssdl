@@ -139,6 +139,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="GetUsersByAdminID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="PartyFundModelStoreContainer">
     <EntitySet Name="DepositDetails" EntityType="Self.DepositDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />

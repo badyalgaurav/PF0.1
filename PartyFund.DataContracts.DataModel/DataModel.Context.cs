@@ -12,6 +12,8 @@ namespace PartyFund.DataContracts.DataModel
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PartyFundEntities : DbContext
     {
@@ -31,5 +33,14 @@ namespace PartyFund.DataContracts.DataModel
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<UserInRole> UserInRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<GetUsersByAdminID_Result> GetUsersByAdminID(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersByAdminID_Result>("GetUsersByAdminID", userIdParameter);
+        }
     }
 }
