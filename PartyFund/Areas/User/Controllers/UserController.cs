@@ -44,8 +44,34 @@ namespace PartyFund.Areas.User.Controllers
         #endregion
 
         #region Dashboard(Index)
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            decimal? sum = 0;
+            var adminID = User.UserDetailsID;
+            var role = User.roles;
+            #region to call GetTransectionDetailsByUserID
+            //Create URL
+            string url = BaseUtility.GetApiUrl("UserApi", "GetUsersByAdminID");
+            url = string.Format(url + "?adminID={0}", adminID);
+            //Invoke API
+            HttpResponseMessage messageTypeList = await BaseUtility.CallGetAPI(url);
+            //Check API response
+            if (messageTypeList.IsSuccessStatusCode)
+            {
+                var jsonString = await messageTypeList.Content.ReadAsStringAsync();
+                System.Web.HttpContext.Current.Cache["userList"] = JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result>>(jsonString);
+            }
+           var userList = (List<GetUsersByAdminID_Result>)System.Web.HttpContext.Current.Cache["userList"];
+            foreach(var item in userList)
+            {
+                var itemAmount = item.CurrentAmount == null ? 0 : item.CurrentAmount;
+                sum = sum + itemAmount;
+            }
+            //string format C0 to format to dollar sign , G29 for simple
+            var stringSum = String.Format("{0:C0}", sum);
+            ViewBag.organicationAmount = stringSum;
+            ViewBag.CompanyName = User.CompanyName;
+            #endregion
             ViewBag.test = "test";
             return View();
         }
@@ -170,6 +196,7 @@ namespace PartyFund.Areas.User.Controllers
         }
         #endregion
 
+        #region to get transection details to modal popup (ADD - Subtract operation)
         public async Task<TransectionDetailViewModel> GetTransectionDetailsByUserID(string userID)
         {
             TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
@@ -190,7 +217,10 @@ namespace PartyFund.Areas.User.Controllers
             #endregion
             return transectionDetails;
         }
-        public async Task<JsonResult> GetUsersByAdminIdDT(JqueryDataTableModel param)
+        #endregion
+
+        #region to Get UserList in DataTable
+        public  JsonResult GetUsersByAdminIdDT(JqueryDataTableModel param)
         {
             var userID=User.UserDetailsID;
             //for sorting
@@ -198,38 +228,18 @@ namespace PartyFund.Areas.User.Controllers
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);//Get Sorting Index of Column
             var dateFields = Request["sSearch_2"];//Get Sorting Index of Column
             int iDisplayLength = param.iDisplayLength;
-                #region to call GetTransectionDetailsByUserID
-            //Create URL
-            string url = BaseUtility.GetApiUrl("UserApi", "GetUsersByAdminID");
-            url = string.Format(url + "?adminID={0}", userID);
-
-            //Invoke API
-            HttpResponseMessage messageTypeList = await BaseUtility.CallGetAPI(url);
-            List<GetUsersByAdminID_Result> result = null;
-            //Check API response
-            if (messageTypeList.IsSuccessStatusCode)
-            {
-                var jsonString = await messageTypeList.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result>>(jsonString);
-            }
-            #endregion
-         // var response = 
-              //concatAllEquipment.OrderBy(x => x.IsSignIn).ThenBy(x => x.ItemDate);
-            //IEnumerable<string[]> response = from c in result
-            //                                 select new[] { Convert.ToString(c.Equipment), string.Format("{0:d}", c.ItemDate), c.Job, (c.IsSignIn == false ? "false" : "true"), null, null, c.EquipmentClass };
-            ////c.EquipmentClass
-            
-            var response = result.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-
+            //userlist cache is created in INDEX method
+            var userList = (List<GetUsersByAdminID_Result>)System.Web.HttpContext.Current.Cache["userList"];
+            var response = userList.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
             return Json(new
             {
                 sEcho = param.sEcho,
-                iTotalRecords = result.Count,
-                iTotalDisplayRecords = result.Count,
+                iTotalRecords = userList.Count,
+                iTotalDisplayRecords = userList.Count,
                 aaData = response,
 
             }, JsonRequestBehavior.AllowGet);
         }
-
+        #endregion
     }
 }

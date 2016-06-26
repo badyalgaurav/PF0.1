@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PartyFundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="PartyFundEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetUsersByAdminID" ReturnType="Collection(PartyFundModel.GetUsersByAdminID_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+    </FunctionImport>
     <EntitySet Name="DepositDetails" EntityType="PartyFundModel.DepositDetail" />
     <EntitySet Name="Roles" EntityType="PartyFundModel.Role" />
     <EntitySet Name="TransectionDetails" EntityType="PartyFundModel.TransectionDetail" />
@@ -27,10 +30,12 @@
       <End Role="User" EntitySet="Users" />
       <End Role="UserInRole" EntitySet="UserInRoles" />
     </AssociationSet>
-    <FunctionImport Name="GetUsersByAdminID" ReturnType="Collection(PartyFundModel.GetUsersByAdminID_Result)">
-      <Parameter Name="UserId" Mode="In" Type="Int32" />
-    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="GetUsersByAdminID_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="CurrentAmount" Nullable="true" Precision="18" Scale="4" />
+  </ComplexType>
   <EntityType Name="DepositDetail">
     <Key>
       <PropertyRef Name="ID" />
@@ -180,9 +185,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="GetUsersByAdminID_Result">
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
-    <Property Type="Decimal" Name="CurrentAmount" Nullable="true" Precision="18" Scale="4" />
-  </ComplexType>
 </Schema>

@@ -32,13 +32,13 @@ namespace PartyFund.Controllers
         HttpClient client;
         IUserDetailsServices iUserDetailsServices = null;
         IUserServices iUserServices = null;
-        string url = ConfigurationManager.AppSettings["ApiUrl"]+"UserApi/";
+        string url = ConfigurationManager.AppSettings["ApiUrl"] + "UserApi/";
         public AccountController()
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ApiUrl"]);
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); 
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             iUserDetailsServices = new UserDetailsServices();
             iUserServices = new UserServices();
         }
@@ -59,17 +59,31 @@ namespace PartyFund.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-       
+
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-          
+
             //while login user can use email as well username
             using (var context = new PartyFundEntities())
             {
                 var res = context.Users.Where(x => x.ID != null);
 
-                var response =
-                     context.Users.FirstOrDefault(x => (x.UserName.ToLower() == model.UserName.ToLower() || x.Email.ToLower() == model.UserName.ToLower()) && x.IsActive);
+                var response = (from u in context.Users
+                                join ud in context.UserDetails on u.UserDetailsID equals ud.ID  into a  from b in a.DefaultIfEmpty()
+                                where ((u.UserName.ToLower() == model.UserName.ToLower() || u.Email.ToLower() == model.UserName.ToLower()) && u.IsActive)
+                                select new UserDetailViewModel
+                               {
+                                   UserName = u.UserName.ToLower(),
+                                   Email = u.Email.ToLower(),
+                                   ID = u.ID,
+                                   UserDetailsID = u.UserDetailsID,
+                                   CompanyName = b.CompanyName,
+                                   Salt = u.Salt,
+                                   Password = u.Password,
+
+                               }).FirstOrDefault();
+
+                //context.Users.FirstOrDefault(x => (x.UserName.ToLower() == model.UserName.ToLower() || x.Email.ToLower() == model.UserName.ToLower()) && x.IsActive);
                 if (response != null)
                 {
                     //store password by encrypt form
@@ -91,9 +105,10 @@ namespace PartyFund.Controllers
                         var serializeModel = new CustomPrincipalSerializeModel
                         {
                             ID = response.ID,
-                            UserDetailsID= response.UserDetailsID,
+                            UserDetailsID = response.UserDetailsID,
                             UserName = response.UserName,
                             Email = response.Email,
+                            CompanyName = response.CompanyName,
                             PlainTextPassword = model.Password, //storing it for auto login once user logged in to the system
                             RoleId = Convert.ToInt32(roleID)
                         };
@@ -114,11 +129,11 @@ namespace PartyFund.Controllers
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                         Response.Cookies.Add(cookie);
                         var test = HttpContext.User.Identity.Name;
-                       
+
                         TempData["UserName"] = response.UserName;
                         if (roleID == 1)
                         {
-                            
+
                             return RedirectToAction("Index", "User", new { area = "User" });
                         }
                         return RedirectToAction("Index", "User", new { area = "User" });
@@ -149,7 +164,7 @@ namespace PartyFund.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
-        public ActionResult Register(string id )
+        public ActionResult Register(string id)
         {
             return View();
         }
@@ -183,18 +198,18 @@ namespace PartyFund.Controllers
                     HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url + "RegisterApi", model);
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                    WebSecurity.Logout();
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    string[] words = User.Identity.Name.Split('/');
-                    var UserName = words[0];
-                    TempData["UserName"] = UserName;
-                    return RedirectToAction("Index", "User", new { area = "User" });
+                        WebSecurity.Logout();
+                        WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                        WebSecurity.Login(model.UserName, model.Password);
+                        string[] words = User.Identity.Name.Split('/');
+                        var UserName = words[0];
+                        TempData["UserName"] = UserName;
+                        return RedirectToAction("Index", "User", new { area = "User" });
                     }
                     return RedirectToAction("Error");
                     //iUserDetailsServices.Insert(model);
                     //iUserServices.Insert(model);
-                    
+
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -523,11 +538,11 @@ namespace PartyFund.Controllers
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            using (var context= new PartyFundEntities())
+            using (var context = new PartyFundEntities())
             {
-           context.Dispose();
-            base.Dispose(disposing);
-                }
+                context.Dispose();
+                base.Dispose(disposing);
+            }
         }
     }
 }

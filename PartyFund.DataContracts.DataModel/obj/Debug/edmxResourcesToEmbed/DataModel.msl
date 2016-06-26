@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PartyFundModelStoreContainer" CdmEntityContainer="PartyFundEntities">
+    <FunctionImportMapping FunctionImportName="GetUsersByAdminID" FunctionName="PartyFundModel.Store.GetUsersByAdminID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PartyFundModel.GetUsersByAdminID_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <EntitySetMapping Name="DepositDetails">
       <EntityTypeMapping TypeName="PartyFundModel.DepositDetail">
         <MappingFragment StoreEntitySet="DepositDetails">
@@ -86,14 +95,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="GetUsersByAdminID" FunctionName="PartyFundModel.Store.GetUsersByAdminID">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PartyFundModel.GetUsersByAdminID_Result">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

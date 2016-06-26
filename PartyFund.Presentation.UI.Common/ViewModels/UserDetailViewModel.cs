@@ -40,5 +40,7 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
         public bool IsDeleted { get; set; }
         public int ParentID { get; set; }
         public Nullable<decimal> CurrentAmount { get; set; }
+
+        public int? UserDetailsID { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
       public int? UserDetailsID { get; set; }
       public string UserName { get; set; }
       public string Email { get; set; }
+      public string CompanyName { get; set; }
       public string PlainTextPassword { get; set; }
       public int RoleId { get; set; }
 

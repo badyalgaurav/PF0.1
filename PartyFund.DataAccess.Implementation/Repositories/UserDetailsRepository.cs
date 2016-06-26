@@ -45,8 +45,8 @@ namespace PartyFund.DataAccess.Implementation.Repositories
     public IOrderedQueryable<GetUsersByAdminID_Result> GetByAdminID(string adminID)
     {
         var adminId = Convert.ToInt16(adminID);
-        var result= context.GetUsersByAdminID(adminId).AsQueryable().OrderByDescending(x=>x.ID);
-        return result  ;
+        var result= context.GetUsersByAdminID(adminId).AsQueryable().OrderBy(x=>x.ID);
+        return result;
     }
 
     public void Insert(UserDetailViewModel model)

@@ -37,7 +37,7 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
         public string Email { get; set; }
         public string PlainTextPassword { get; set; }
         public int RoleId { get; set; }
-
+        public string CompanyName { get; set; }
         public string[] roles { get; set; }
     }
 }

@@ -33,21 +33,29 @@ namespace PartyFund
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
-            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie != null)
+            try
             {
+                HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                if (authCookie != null)
+                {
 
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 
-                CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
-                CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
-                newUser.UserDetailsID = serializeModel.UserDetailsID;
-                newUser.UserName = serializeModel.UserName;
-                newUser.Email = serializeModel.Email;
-                newUser.RoleId = serializeModel.RoleId;
-                newUser.ID = serializeModel.ID;
+                    CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
+                    CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
+                    newUser.UserDetailsID = serializeModel.UserDetailsID;
+                    newUser.UserName = serializeModel.UserName;
+                    newUser.Email = serializeModel.Email;
+                    newUser.RoleId = serializeModel.RoleId;
+                    newUser.ID = serializeModel.ID;
+                    newUser.CompanyName = serializeModel.CompanyName;
 
-                HttpContext.Current.User = newUser;
+                    HttpContext.Current.User = newUser;
+                }
+            }
+            catch
+            {
+              
             }
         }
 

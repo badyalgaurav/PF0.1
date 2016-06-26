@@ -3,8 +3,10 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
+@section styles{
+      }
 <div class="content animate-panel zoomIn">
-    @*RenderPartial will be used to reuse the same function*@ 
+    @*RenderPartial will be used to reuse the same function*@
     @{Html.RenderPartial("_OrganizationPanel");}
     <div class="row">
         <div class="col-lg-12">
@@ -16,8 +18,8 @@
                         </ol>
                     </div>
                     <h2 class="font-light m-b-xs">
-                        <a href='@Url.Action("Register","Account" , new { area = "" })'>Add New User</a> 
-                        <a href='@Url.Action("GetUsersByAdminIdDT", "User")'>get user record</a> 
+                        <a href='@Url.Action("Register","Account" , new { area = "" })'>Add New User</a>
+                        <a href='@Url.Action("GetUsersByAdminIdDT", "User")'>get user record</a>
                     </h2>
                     <small>Two great icon libraries. Pe-icon-7-stroke and Font Awesome</small>
                 </div>
@@ -30,16 +32,15 @@
                 <div class="hpanel">
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table id="tblUsersList" cellpadding="1" cellspacing="1" class="table table-bordered table-striped ">
+                            <table id="tblUsersList" class="table table-striped  table-bordered  row-border dt-responsive nowrap " cellspacing="0" width="100%">
                                 <thead style="cursor: pointer">
                                     <tr>
                                         <th>User Name</th>
                                         <th>Current Amount</th>
-                                        <th> Action</th>
+                                        <th data-hide="phone,tablet"> Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
 
@@ -57,14 +58,12 @@
 
     @section Scripts{
         <script>
-
             $('#tblUsersList').dataTable(
                 {
                     "bFilter": true,
                     "dom": 'Rlfrtip',
                     "processing": true,
                     "serverSide": true,
-
                     "sAjaxSource": '@Url.Action("GetUsersByAdminIdDT", "User")',
                     "oLanguage": {
                        // "sProcessing": "<img src='@Url.Content("~/Content/images/loading-bars.svg")'>"
@@ -97,7 +96,7 @@
                            "defaultContent": "",
                            "mRender": function (data, type, oObj) {
                                var url = '@Url.Action("CreditDebitUserAmount", "User", new { @id = "ID"})'.replace("ID", oObj.ID);
-                               return "<span><a href='" + url + "'>" + oObj.UserName + "</a></span>";
+                               return "<span><a href='" + url + " class='btn-info'>" + oObj.UserName + "</a></span>";
                            }
                        },
                         {

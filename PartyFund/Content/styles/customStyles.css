@@ -1,0 +1,6 @@
+﻿        div#tblUsersList_info,#tblUsersList_length {
+            display:none !important;
+    /*padding: 5px;
+    width: 50%;
+    float: left;*/
+}

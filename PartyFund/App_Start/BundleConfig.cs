@@ -34,14 +34,20 @@ namespace PartyFund
                        "~/Content/vendor/metisMenu/dist/metisMenu.js",
                        "~/Content/vendor/iCheck/icheckMin.js",
                        "~/Content/vendor/sparkline/index.js",
-                       "~/Content/vendor/datatables/media/js/jquery.dataTablesMin.js",
+                //"~/Content/vendor/datatables/media/js/jquery.dataTablesMin.js",
+                //DATA TABLE JQuery REGION
+"~/Content/scripts/dataTableResponsive/dataTableMin.js",
+"~/Content/scripts/dataTableResponsive/dataTableBootstrapMin.js",
+"~/Content/scripts/dataTableResponsive/dataTableResponsiveMin.js",
+"~/Content/scripts/dataTableResponsive/responsiveBootstrapMin.js",
+                //END DATATABLE JQUERY REGION
                        "~/Content/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrapMin.js",
                        "~/Content/vendor/toastr/build/toastrMin.js",
                        "~/Content/scripts/ajaxLoader.js",
                 //toasterOptions(manually options)
                        "~/Content/scripts/toastrOptions.js",
                 //AngularMin.js
-                       //"~/Content/Angular/Scripts/angularMin.js",
+                //"~/Content/Angular/Scripts/angularMin.js",
                 //App Script
                        "~/Content/scripts/homer.js"
                        ));
@@ -55,6 +61,7 @@ namespace PartyFund
                 "~/Content/vendor/sweetalert/lib/sweet-alert.css",
                 "~/Content/vendor/toastr/build/toastrMin.css",
                 "~/Content/vendor/datatables_plugins/integration/bootstrap/3/dataTables.bootstrap.css",
+                "~/Content/styles/dataTableResponsiveCSS.css",
                 //App Style
                 //ajaxLoader
                 "~/Content/styles/ajaxLoader.css",
