@@ -62,7 +62,7 @@ namespace WebApi.Controllers
         /// <param name="adminID"></param>
         /// <returns>return list of users added by admin </returns>
         [HttpGet]
-        public IOrderedQueryable<GetUsersByAdminID_Result> GetUsersByAdminID(string adminID)
+        public IOrderedQueryable<GetUsersByAdminID_Result2> GetUsersByAdminID(string adminID)
         {
             var response = userDetailsRepository.GetByAdminID(adminID);
             

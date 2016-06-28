@@ -69,7 +69,7 @@
     <Compile Include="DepositDetail.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GetUsersByAdminID_Result.cs">
+    <Compile Include="GetUsersByAdminID_Result2.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

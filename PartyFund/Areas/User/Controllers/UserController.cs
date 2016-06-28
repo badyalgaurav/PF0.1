@@ -49,6 +49,7 @@ namespace PartyFund.Areas.User.Controllers
             decimal? sum = 0;
             var adminID = User.UserDetailsID;
             var role = User.roles;
+            List<GetUsersByAdminID_Result2> userList = new List<GetUsersByAdminID_Result2>();
             #region to call GetTransectionDetailsByUserID
             //Create URL
             string url = BaseUtility.GetApiUrl("UserApi", "GetUsersByAdminID");
@@ -59,10 +60,21 @@ namespace PartyFund.Areas.User.Controllers
             if (messageTypeList.IsSuccessStatusCode)
             {
                 var jsonString = await messageTypeList.Content.ReadAsStringAsync();
-                System.Web.HttpContext.Current.Cache["userList"] = JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result>>(jsonString);
+                 userList= JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result2>>(jsonString);
             }
-           var userList = (List<GetUsersByAdminID_Result>)System.Web.HttpContext.Current.Cache["userList"];
-            foreach(var item in userList)
+         
+        //    var userList = (List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"];
+            var otherQuery = userList
+.GroupBy(record => new { record.ID }).Select(g => g.OrderByDescending(record => record.DateCreated).FirstOrDefault()).ToList();
+             System.Web.HttpContext.Current.Cache["userList"] = otherQuery;
+            //var rest = (from f in userList
+            //            select f.ID).Distinct();
+            //var test = (from f in userList
+            //            where rest.Contains(f.ID)
+            //            orderby f.DateCreated descending
+            //            select new GetUsersByAdminID_Result2() { ID = f.ID, UserName = f.UserName, CurrentAmount = f.CurrentAmount, DateCreated = f.DateCreated }).Distinct();
+
+            foreach (var item in otherQuery)
             {
                 var itemAmount = item.CurrentAmount == null ? 0 : item.CurrentAmount;
                 sum = sum + itemAmount;
@@ -176,39 +188,54 @@ namespace PartyFund.Areas.User.Controllers
         public async Task<ActionResult> CreditDebitUserAmount(string id, string param)
         {
         
-            var userID = "1014";
-     //       TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
-          var  transectionDetails = await GetTransectionDetailsByUserID(userID);
-            var test = User.UserDetailsID;
-            if (param == "add")
+            var userID = id;
+            TransectionDetailViewModel transectionDetails ;
+            decimal? sum = 0; 
+          // TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
+            //for organization
+            if (id == "0")
             {
-                ViewBag.sign = "+";
-                ViewBag.action = "Credit Amount";
+                userID = Convert.ToString(User.UserDetailsID);
+                
+                var userList = (List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"];
+              
+                foreach (var item in userList)
+                {
+                    var itemAmount = item.CurrentAmount == null ? 0 : item.CurrentAmount;
+                    sum = sum + itemAmount;
+                }
+                //here username is using as a organization Name
+                transectionDetails = new TransectionDetailViewModel { UserName = User.CompanyName, CurrentAmount = sum , UserID=Convert.ToInt16(id)};
             }
             else
             {
-                ViewBag.sign = "-";
-                ViewBag.action = "Deducted Amount";
-
+                //for user
+                 transectionDetails = await GetTransectionDetailsByUserID(userID);
             }
-            
+                if (param == "add")
+                {
+                    transectionDetails.Action = "C";
+                    ViewBag.sign = "+";
+                    ViewBag.action = "Credit Amount";
+                }
+                else
+                {
+                    transectionDetails.Action = "D";
+                    ViewBag.sign = "-";
+                    ViewBag.action = "Debit Amount";
+                }
             return View("~/Areas/User/Views/User/_CreditDebitUserAmount.cshtml",transectionDetails);
         }
         #endregion
 
-        #region to get transection details to modal popup (ADD - Subtract operation)
+        #region METHOD to get transection details to modal popup (ADD - Subtract operation)
         public async Task<TransectionDetailViewModel> GetTransectionDetailsByUserID(string userID)
         {
             TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
             #region to call GetTransectionDetailsByUserID
-            //Create URL
             string url = BaseUtility.GetApiUrl("TransectionDetailsAPI", "GetTransectionDetailsByUserID");
             url = string.Format(url + "?userID={0}", userID);
-
-            //Invoke API
             HttpResponseMessage messageTypeList = await BaseUtility.CallGetAPI(url);
-
-            //Check API response
             if (messageTypeList.IsSuccessStatusCode)
             {
                 var jsonString = await messageTypeList.Content.ReadAsStringAsync();
@@ -229,7 +256,7 @@ namespace PartyFund.Areas.User.Controllers
             var dateFields = Request["sSearch_2"];//Get Sorting Index of Column
             int iDisplayLength = param.iDisplayLength;
             //userlist cache is created in INDEX method
-            var userList = (List<GetUsersByAdminID_Result>)System.Web.HttpContext.Current.Cache["userList"];
+            var userList = (List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"];
             var response = userList.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
             return Json(new
             {
@@ -241,5 +268,31 @@ namespace PartyFund.Areas.User.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+    public async Task<ActionResult>  UpdateOrganizationAmount(TransectionDetailViewModel model )
+        {
+        List<TransectionDetail> transectionDetailsList = new List<TransectionDetail>();
+        var userList = ((List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"]);
+            var numberOfUser= userList.Count;
+            var meanAmount =Convert.ToDecimal(model.TransectionAmount)/Convert.ToDecimal(numberOfUser);
+            foreach (var item in userList)
+            {
+                transectionDetailsList.Add(new TransectionDetail { CurrentAmount = (item.CurrentAmount == null ? 0 : item.CurrentAmount)  + meanAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = User.UserName, TransectionAmount = meanAmount, UserID = item.ID });
+               
+            }
+
+            #region to call GetTransectionDetailsByUserID
+            string url = BaseUtility.GetApiUrl("TransectionDetailsAPI", "InsertAdminAmount");
+          //  url = string.Format(url + "?userID={0}", model.UserID);
+            HttpResponseMessage messageTypeList = await BaseUtility.CallListPostAPI(url, transectionDetailsList);
+            if (messageTypeList.IsSuccessStatusCode)
+            {
+                var jsonString = await messageTypeList.Content.ReadAsStringAsync();
+               // transectionDetails = JsonConvert.DeserializeObject<TransectionDetailViewModel>(jsonString);
+            }
+            #endregion
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
     }
 }

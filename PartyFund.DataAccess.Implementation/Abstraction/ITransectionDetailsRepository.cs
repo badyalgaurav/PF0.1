@@ -17,6 +17,7 @@ namespace PartyFund.DataAccess.Implementation.Abstraction
         void Update(TransectionDetailViewModel obj);
         void Delete(string id);
         void Save();
+        void InsertAdminAmount(List<TransectionDetail> model);
 
     }
 }

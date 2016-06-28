@@ -64,9 +64,12 @@ namespace PartyFund.DataAccess.Implementation.Repositories
         /// <param name="model"></param>
         public void Insert(TransectionDetailViewModel model)
         {
-            var transectionDetails = new TransectionDetail { CurrentAmount = model.TotalAmount, TransectionAmount= model.TransectionAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = model.CreatedBy, UserID = model.UserID };
-            context.TransectionDetails.Add(transectionDetails);
-            Save();
+
+                var transectionDetails = new TransectionDetail { CurrentAmount = model.TotalAmount, TransectionAmount = model.TransectionAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = model.CreatedBy, UserID = model.UserID };
+                context.TransectionDetails.Add(transectionDetails);
+                Save();
+            
+           
         }
         #endregion
 
@@ -91,6 +94,15 @@ namespace PartyFund.DataAccess.Implementation.Repositories
         }
         #endregion
 
+        public void InsertAdminAmount(List<TransectionDetail> model)
+        {
+            foreach (var item in model)
+            {
+                context.TransectionDetails.Add(item);
+            }
+            Save();
+            
+        }
         public void Save()
         {
             context.SaveChanges();

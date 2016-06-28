@@ -42,7 +42,7 @@ namespace WebApi.Controllers
             return this.Request.CreateResponse(HttpStatusCode.OK, response);
         }
         #endregion
-          #region GetTransectionDetailsByUserID
+          #region GetTransectionDetailsByUserID for single User
         [AcceptVerbs("POST")]
         [ActionName("InsertTransectionRecord")]
         public HttpResponseMessage InsertTransectionRecord(TransectionDetailViewModel obj)
@@ -53,6 +53,16 @@ namespace WebApi.Controllers
             //{
             //    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             //}
+            return this.Request.CreateResponse(HttpStatusCode.OK);
+        }
+          #endregion
+
+        #region InsertUsersAmount for admin or Organization
+        [AcceptVerbs("POST")]
+        [ActionName("InsertAdminAmount")]
+        public HttpResponseMessage InsertAdminAmount(List<TransectionDetail> model)
+        {
+            transectionDetailsRepository.InsertAdminAmount(model);
             return this.Request.CreateResponse(HttpStatusCode.OK);
         }
           #endregion

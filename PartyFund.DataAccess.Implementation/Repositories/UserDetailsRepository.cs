@@ -42,10 +42,12 @@ namespace PartyFund.DataAccess.Implementation.Repositories
       var  Id=Convert.ToInt16(id);
       return context.UserDetails.Where(x => x.ID == Id).FirstOrDefault(); ;
     }
-    public IOrderedQueryable<GetUsersByAdminID_Result> GetByAdminID(string adminID)
+    public IOrderedQueryable<GetUsersByAdminID_Result2> GetByAdminID(string adminID)
     {
         var adminId = Convert.ToInt16(adminID);
         var result= context.GetUsersByAdminID(adminId).AsQueryable().OrderBy(x=>x.ID);
+       
+       // var resul = result.Distinct();
         return result;
     }
 

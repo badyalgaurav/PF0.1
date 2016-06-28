@@ -34,13 +34,13 @@ namespace PartyFund.DataContracts.DataModel
         public virtual DbSet<UserInRole> UserInRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual ObjectResult<GetUsersByAdminID_Result> GetUsersByAdminID(Nullable<int> userId)
+        public virtual ObjectResult<GetUsersByAdminID_Result2> GetUsersByAdminID(Nullable<int> userId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("UserId", userId) :
                 new ObjectParameter("UserId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersByAdminID_Result>("GetUsersByAdminID", userIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersByAdminID_Result2>("GetUsersByAdminID", userIdParameter);
         }
     }
 }

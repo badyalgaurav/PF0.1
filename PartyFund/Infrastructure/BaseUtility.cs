@@ -74,6 +74,16 @@ namespace PartyFund.Infrastructure
             return responseMessage;
         }
 
+        public static async Task<HttpResponseMessage> CallListPostAPI<T>(string url, List<T> obj)
+        {
+            HttpClient clientPost = new HttpClient();
+            string baseUrl = ConfigurationManager.AppSettings["ApiUrl"].ToString();
+            HttpResponseMessage responseMessage = await clientPost.PostAsync(url, new StringContent(
+           Newtonsoft.Json.JsonConvert.SerializeObject(obj),
+           Encoding.UTF8, "application/json"));
+
+            return responseMessage;
+        }
         /// <summary>
         /// method to call any api using POST
         /// </summary>

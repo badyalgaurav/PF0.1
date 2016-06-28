@@ -180,9 +180,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="PartyFundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PartyFundEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="GetUsersByAdminID" ReturnType="Collection(PartyFundModel.GetUsersByAdminID_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="DepositDetails" EntityType="PartyFundModel.DepositDetail" />
           <EntitySet Name="Roles" EntityType="PartyFundModel.Role" />
           <EntitySet Name="TransectionDetails" EntityType="PartyFundModel.TransectionDetail" />
@@ -209,12 +206,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserInRole" EntitySet="UserInRoles" />
           </AssociationSet>
+          <FunctionImport Name="GetUsersByAdminID" ReturnType="Collection(PartyFundModel.GetUsersByAdminID_Result2)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
-        <ComplexType Name="GetUsersByAdminID_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="CurrentAmount" Nullable="true" Precision="18" Scale="4" />
-        </ComplexType>
         <EntityType Name="DepositDetail">
           <Key>
             <PropertyRef Name="ID" />
@@ -364,21 +359,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetUsersByAdminID_Result2">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="CurrentAmount" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PartyFundModelStoreContainer" CdmEntityContainer="PartyFundEntities">
-          <FunctionImportMapping FunctionImportName="GetUsersByAdminID" FunctionName="PartyFundModel.Store.GetUsersByAdminID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PartyFundModel.GetUsersByAdminID_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="DepositDetails">
             <EntityTypeMapping TypeName="PartyFundModel.DepositDetail">
               <MappingFragment StoreEntitySet="DepositDetails">
@@ -464,6 +456,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetUsersByAdminID" FunctionName="PartyFundModel.Store.GetUsersByAdminID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PartyFundModel.GetUsersByAdminID_Result2">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

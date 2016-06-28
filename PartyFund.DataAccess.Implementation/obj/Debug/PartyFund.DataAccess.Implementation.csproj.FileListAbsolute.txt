@@ -18,9 +18,6 @@ D:\Projects\PartyFund\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.Da
 D:\Projects\PartyFund\PartyFund.DataAccess.Implementation\bin\Debug\EntityFramework.dll
 D:\Projects\PartyFund\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.DataContracts.DataModel.dll
 D:\Projects\PartyFund\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.DataContracts.DataModel.pdb
-D:\Projects\GitProject\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.DataAccess.Implementation.csprojResolveAssemblyReference.cache
-D:\Projects\GitProject\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.DataAccess.Implementation.dll
-D:\Projects\GitProject\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.DataAccess.Implementation.pdb
 D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.DataAccess.Implementation.dll
 D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.DataAccess.Implementation.pdb
 D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\EntityFramework.dll
@@ -29,3 +26,6 @@ D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.P
 D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.DataContracts.DataModel.pdb
 D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\PartyFund.Presentation.UI.Common.pdb
 D:\Projects\GitProject\PartyFund.DataAccess.Implementation\bin\Debug\EntityFramework.xml
+D:\Projects\GitProject\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.DataAccess.Implementation.csprojResolveAssemblyReference.cache
+D:\Projects\GitProject\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.DataAccess.Implementation.dll
+D:\Projects\GitProject\PartyFund.DataAccess.Implementation\obj\Debug\PartyFund.DataAccess.Implementation.pdb

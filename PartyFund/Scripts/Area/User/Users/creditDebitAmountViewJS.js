@@ -20,13 +20,21 @@ $(document).ready(function () {
 });
 //region to save the new add or delete operation
 window.Update = function (id) {
+    var url;
+    if (id == "0")
+    {
+        url = addAdminAmountUrl;
+    }
+    else {
+        url = "http://localhost:1416/api/TransectionDetailsAPI/InsertTransectionRecord";
+    }
     debugger;
     //var ID = Convert.toInt(id);
     $("#TransectionAmount").val($("#insertedAmount").val());
     $("#TotalAmount").val($("#totalAmount").val());
     var data = $('#registerationForm').serialize();
     $.ajax({
-        url: "http://localhost:1416/api/TransectionDetailsAPI/InsertTransectionRecord",
+        url:url ,
         type: "Post",
         data: data,
         //contentType: "application/jsonp; charset=utf-8",

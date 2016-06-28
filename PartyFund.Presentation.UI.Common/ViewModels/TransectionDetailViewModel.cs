@@ -21,6 +21,8 @@ namespace PartyFund.Presentation.UI.Common.ViewModels
        //refrence from userviewmodel
         public string UserName { get; set; }
 
+        public string CompanyName { get; set; }
+
       
     }
 }

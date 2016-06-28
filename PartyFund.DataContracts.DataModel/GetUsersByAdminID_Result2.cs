@@ -11,10 +11,11 @@ namespace PartyFund.DataContracts.DataModel
 {
     using System;
     
-    public partial class GetUsersByAdminID_Result
+    public partial class GetUsersByAdminID_Result2
     {
         public int ID { get; set; }
         public string UserName { get; set; }
         public Nullable<decimal> CurrentAmount { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
     }
 }

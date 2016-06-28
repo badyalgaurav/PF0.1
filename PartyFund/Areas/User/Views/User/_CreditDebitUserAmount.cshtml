@@ -51,6 +51,7 @@
                                 <input type="number" id="totalAmount" value="{{(@Model.CurrentAmount - 0) @ViewBag.sign  (InsertedAmount -0) }}" class="form-control" readonly>
                                 @Html.HiddenFor(x => x.TotalAmount)
                                 @Html.HiddenFor(x => x.UserID)
+                                @Html.HiddenFor(x => x.Action)
                             </div>
                         </div>
                         @*</form>*@
@@ -69,6 +70,7 @@
  
     //relocationUrl is used inside creditDebitAmountViewJS to relocate to action
     var relocationUrl = '@Url.Action("Index", "User", new { area="User"})';
+    var addAdminAmountUrl = '@Url.Action("UpdateOrganizationAmount", "User", new { area = "User" })';
 </script>
 <script src="~/Scripts/Area/User/Users/creditDebitAmountViewJS.js"></script>
 @section Scripts{
