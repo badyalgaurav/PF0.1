@@ -4,6 +4,7 @@
 }
 
 @section styles{
+<link href="~/Content/styles/customStyles.css" rel="stylesheet" />
       }
 <div class="content animate-panel zoomIn">
     @*RenderPartial will be used to reuse the same function*@
@@ -18,8 +19,8 @@
                         </ol>
                     </div>
                     <h2 class="font-light m-b-xs">
-                        <a href='@Url.Action("Register","Account" , new { area = "" })'>Add New User</a>
-                        <a href='@Url.Action("GetUsersByAdminIdDT", "User")'>get user record</a>
+                      @*  <button onclick="window.location(@Url.Action("Registration", "User", new { area = "User" }))">test</button>*@
+                        <a id="btnAddUser" href='@Url.Action("Registration", "User", new { area = "User" })'>Add New User</a>
                     </h2>
                     <small>Two great icon libraries. Pe-icon-7-stroke and Font Awesome</small>
                 </div>
@@ -58,6 +59,19 @@
 
     @section Scripts{
         <script>
+            $('#btnAddUser').click(function () {
+                //Link Loader (without Ajax hit)
+                var height = $(document).height();;
+                $("#loading").attr("style", "position:absolute;baseZ: 99999; z-index: 99999; top: 0px; " +
+                    "left:0px; text-align: center; display:none; background-color: #404040;color: '#fff'; " +
+                    "height:" + height + "px; width: 100%; /* These three lines are for transparency " +
+                    "in all browsers. */-ms-filter:\"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\";" +
+                    " filter: alpha(opacity=50); opacity:.5;");
+                $("#loading img");
+                $("#loading").show();
+                //End of Link Loader(withou ajax hit)
+                return true;
+            });
             $('#tblUsersList').dataTable(
                 {
                     "bFilter": true,
@@ -95,8 +109,9 @@
                            "sTitle": "User Name",
                            "defaultContent": "",
                            "mRender": function (data, type, oObj) {
+                               debugger;
                                var url = '@Url.Action("CreditDebitUserAmount", "User", new { @id = "ID"})'.replace("ID", oObj.ID);
-                               return "<span><a href='" + url + " class='btn-info'>" + oObj.UserName + "</a></span>";
+                               return "<span><a href='" + url + "' class='text-info'>" + oObj.UserName + "</a></span>";
                            }
                        },
                         {

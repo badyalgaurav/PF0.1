@@ -1,6 +1,5 @@
 ﻿$(document).ajaxStart(function () {
     var height = $(document).height();;
-    debugger;
     $("#loading").attr("style", "position:absolute;baseZ: 99999; z-index: 99999; top: 0px; " +
         "left:0px; text-align: center; display:none; background-color: #404040;color: '#fff'; " +
         "height:" + height + "px; width: 100%; /* These three lines are for transparency " +

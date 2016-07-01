@@ -14,12 +14,15 @@ else {
 $(document).ready(function () {
     $("#insertedAmount").keypress(function (e) {
         if (e.which == 13) {
-            window.Update();
+            debugger;
+           var id= $("#UserID").val();
+           window.Update(id);
         }
     });
 });
 //region to save the new add or delete operation
 window.Update = function (id) {
+    debugger;
     var url;
     if (id == "0")
     {

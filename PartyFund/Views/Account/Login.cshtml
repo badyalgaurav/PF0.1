@@ -164,7 +164,9 @@
 
 @section Scripts{
     <script>
-
+        if ("@TempData["successMessage"]") {
+            toastr.success('<b>'+"@TempData["successMessage"]" + '</b>');
+        }
         //this function is used to display modal popup at run time resptive to url
     //#region To show Add ticket attachments by user on add user ticket button click
         window.Register = function (id) {

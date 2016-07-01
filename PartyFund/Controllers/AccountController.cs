@@ -203,8 +203,8 @@ namespace PartyFund.Controllers
                         WebSecurity.Login(model.UserName, model.Password);
                         string[] words = User.Identity.Name.Split('/');
                         var UserName = words[0];
-                        TempData["UserName"] = UserName;
-                        return RedirectToAction("Index", "User", new { area = "User" });
+                        TempData["successMessage"] ="Successfully Created";
+                        return RedirectToAction("Login", "Account", new { @area = "" });
                     }
                     return RedirectToAction("Error");
                     //iUserDetailsServices.Insert(model);

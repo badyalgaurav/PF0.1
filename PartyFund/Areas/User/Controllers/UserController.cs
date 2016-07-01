@@ -48,7 +48,6 @@ namespace PartyFund.Areas.User.Controllers
         {
             decimal? sum = 0;
             var adminID = User.UserDetailsID;
-            var role = User.roles;
             List<GetUsersByAdminID_Result2> userList = new List<GetUsersByAdminID_Result2>();
             #region to call GetTransectionDetailsByUserID
             //Create URL
@@ -60,20 +59,11 @@ namespace PartyFund.Areas.User.Controllers
             if (messageTypeList.IsSuccessStatusCode)
             {
                 var jsonString = await messageTypeList.Content.ReadAsStringAsync();
-                 userList= JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result2>>(jsonString);
+                userList = JsonConvert.DeserializeObject<List<GetUsersByAdminID_Result2>>(jsonString);
             }
-         
-        //    var userList = (List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"];
-            var otherQuery = userList
-.GroupBy(record => new { record.ID }).Select(g => g.OrderByDescending(record => record.DateCreated).FirstOrDefault()).ToList();
-             System.Web.HttpContext.Current.Cache["userList"] = otherQuery;
-            //var rest = (from f in userList
-            //            select f.ID).Distinct();
-            //var test = (from f in userList
-            //            where rest.Contains(f.ID)
-            //            orderby f.DateCreated descending
-            //            select new GetUsersByAdminID_Result2() { ID = f.ID, UserName = f.UserName, CurrentAmount = f.CurrentAmount, DateCreated = f.DateCreated }).Distinct();
-
+            //this query will return one record of a single user order by record.datecreated
+            var otherQuery = userList.GroupBy(record => new { record.ID }).Select(g => g.OrderByDescending(record => record.DateCreated).FirstOrDefault()).ToList();
+            System.Web.HttpContext.Current.Cache["userList"] = otherQuery;
             foreach (var item in otherQuery)
             {
                 var itemAmount = item.CurrentAmount == null ? 0 : item.CurrentAmount;
@@ -117,26 +107,25 @@ namespace PartyFund.Areas.User.Controllers
         {
             try
             {
-                //split the user Cookie to get userdetailsID
-                string[] words = User.Identity.Name.Split('/');
-                  var id = words[1];
+                var id = User.UserDetailsID;
                 //this is used to send request to web api to get record for a particular user
-                HttpResponseMessage responseMessage = await client.GetAsync(url + "GetByID/" + id);
+                string url = BaseUtility.GetApiUrl("UserApi", "GetByID");
+                url = string.Format(url + "?id={0}", id);
+                HttpResponseMessage responseMessage = await BaseUtility.CallGetAPI(url);
+                //HttpResponseMessage responseMessage = await client.GetAsync(url + "GetByID/" + id);
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     var responseData = responseMessage.Content.ReadAsStringAsync().Result;
                     var result = JsonConvert.DeserializeObject<UserDetail>(responseData);
                     //here viewbag is used to display company name in readonly mode
                     ViewBag.CompanyName = result.CompanyName;
-                    return View();
                 }
+                return View();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
-
-            return View();
         }
         [HttpPost]
         [AllowAnonymous]
@@ -145,35 +134,33 @@ namespace PartyFund.Areas.User.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
                 try
                 {
-                   
-                    string[] words = User.Identity.Name.Split('/');
-                    var parentId = words[1];
+                    int? parentId = User.UserDetailsID;
                     var password = model.Password;
                     var PASSWORD_BCRYPT_COST = 8; // work factor
                     var PASSWORD_SALT = Utility.GetSalt(); //generated random salt
                     var salt = "$2a$" + PASSWORD_BCRYPT_COST + "$" + PASSWORD_SALT;
                     var pwdToHash = password + salt;
                     var hashToStoreInDatabase = BCrypt.Net.BCrypt.HashPassword(pwdToHash, BCrypt.Net.BCrypt.GenerateSalt());
-                    model.ParentID = !string.IsNullOrEmpty(parentId) ? Convert.ToInt32(parentId) : 0;
+                    model.ParentID = Convert.ToInt16(parentId);
                     model.Password = hashToStoreInDatabase;
                     model.Salt = PASSWORD_SALT;
                     ViewBag.companyName = model.CompanyName;
-                    HttpResponseMessage responseMessage = await client.PostAsJsonAsync(url + "RegisterApi", model);
+                    string url = BaseUtility.GetApiUrl("UserApi", "RegisterApi");
+                    HttpResponseMessage responseMessage = await BaseUtility.CallPostAPI(url, model);
                     //view bag is used to send notification
                     ViewBag.Status = responseMessage.IsSuccessStatusCode == true ? "Success" : "fail";
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                            return View();
+                        return View();
                     }
                     return RedirectToAction("Registration", "User", new { area = "User" });
 
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("",PartyFund.Controllers.AccountController.ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", PartyFund.Controllers.AccountController.ErrorCodeToString(e.StatusCode));
                     return RedirectToAction("Registration", "User", new { area = "User" });
                 }
             }
@@ -187,44 +174,44 @@ namespace PartyFund.Areas.User.Controllers
         //view name change to _CreditDebitUserAmount
         public async Task<ActionResult> CreditDebitUserAmount(string id, string param)
         {
-        
+
             var userID = id;
-            TransectionDetailViewModel transectionDetails ;
-            decimal? sum = 0; 
-          // TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
+            TransectionDetailViewModel transectionDetails;
+            decimal? sum = 0;
+            // TransectionDetailViewModel transectionDetails = new TransectionDetailViewModel();
             //for organization
             if (id == "0")
             {
                 userID = Convert.ToString(User.UserDetailsID);
-                
+
                 var userList = (List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"];
-              
+
                 foreach (var item in userList)
                 {
                     var itemAmount = item.CurrentAmount == null ? 0 : item.CurrentAmount;
                     sum = sum + itemAmount;
                 }
                 //here username is using as a organization Name
-                transectionDetails = new TransectionDetailViewModel { UserName = User.CompanyName, CurrentAmount = sum , UserID=Convert.ToInt16(id)};
+                transectionDetails = new TransectionDetailViewModel { UserName = User.CompanyName, CurrentAmount = sum, UserID = Convert.ToInt16(id) };
             }
             else
             {
                 //for user
-                 transectionDetails = await GetTransectionDetailsByUserID(userID);
+                transectionDetails = await GetTransectionDetailsByUserID(userID);
             }
-                if (param == "add")
-                {
-                    transectionDetails.Action = "C";
-                    ViewBag.sign = "+";
-                    ViewBag.action = "Credit Amount";
-                }
-                else
-                {
-                    transectionDetails.Action = "D";
-                    ViewBag.sign = "-";
-                    ViewBag.action = "Debit Amount";
-                }
-            return View("~/Areas/User/Views/User/_CreditDebitUserAmount.cshtml",transectionDetails);
+            if (param == "add")
+            {
+                transectionDetails.Action = "C";
+                ViewBag.sign = "+";
+                ViewBag.action = "Credit Amount";
+            }
+            else
+            {
+                transectionDetails.Action = "D";
+                ViewBag.sign = "-";
+                ViewBag.action = "Debit Amount";
+            }
+            return View("~/Areas/User/Views/User/_CreditDebitUserAmount.cshtml", transectionDetails);
         }
         #endregion
 
@@ -247,9 +234,9 @@ namespace PartyFund.Areas.User.Controllers
         #endregion
 
         #region to Get UserList in DataTable
-        public  JsonResult GetUsersByAdminIdDT(JqueryDataTableModel param)
+        public JsonResult GetUsersByAdminIdDT(JqueryDataTableModel param)
         {
-            var userID=User.UserDetailsID;
+            var userID = User.UserDetailsID;
             //for sorting
             var sortDirection = Request["sSortDir_0"];//asc or desc
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);//Get Sorting Index of Column
@@ -269,26 +256,26 @@ namespace PartyFund.Areas.User.Controllers
         }
         #endregion
 
-    public async Task<ActionResult>  UpdateOrganizationAmount(TransectionDetailViewModel model )
+        public async Task<ActionResult> UpdateOrganizationAmount(TransectionDetailViewModel model)
         {
-        List<TransectionDetail> transectionDetailsList = new List<TransectionDetail>();
-        var userList = ((List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"]);
-            var numberOfUser= userList.Count;
-            var meanAmount =Convert.ToDecimal(model.TransectionAmount)/Convert.ToDecimal(numberOfUser);
+            List<TransectionDetail> transectionDetailsList = new List<TransectionDetail>();
+            var userList = ((List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"]);
+            var numberOfUser = userList.Count;
+            var meanAmount = Convert.ToDecimal(model.TransectionAmount) / Convert.ToDecimal(numberOfUser);
             foreach (var item in userList)
             {
-                transectionDetailsList.Add(new TransectionDetail { CurrentAmount = (item.CurrentAmount == null ? 0 : item.CurrentAmount)  + meanAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = User.UserName, TransectionAmount = meanAmount, UserID = item.ID });
-               
+                transectionDetailsList.Add(new TransectionDetail { CurrentAmount = (item.CurrentAmount == null ? 0 : item.CurrentAmount) + meanAmount, Action = model.Action, DateCreated = DateTime.Now, CreatedBy = User.UserName, TransectionAmount = meanAmount, UserID = item.ID });
+
             }
 
             #region to call GetTransectionDetailsByUserID
             string url = BaseUtility.GetApiUrl("TransectionDetailsAPI", "InsertAdminAmount");
-          //  url = string.Format(url + "?userID={0}", model.UserID);
+            //  url = string.Format(url + "?userID={0}", model.UserID);
             HttpResponseMessage messageTypeList = await BaseUtility.CallListPostAPI(url, transectionDetailsList);
             if (messageTypeList.IsSuccessStatusCode)
             {
                 var jsonString = await messageTypeList.Content.ReadAsStringAsync();
-               // transectionDetails = JsonConvert.DeserializeObject<TransectionDetailViewModel>(jsonString);
+                // transectionDetails = JsonConvert.DeserializeObject<TransectionDetailViewModel>(jsonString);
             }
             #endregion
 
