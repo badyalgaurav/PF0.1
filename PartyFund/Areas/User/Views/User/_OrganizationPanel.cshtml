@@ -6,14 +6,23 @@
                     <div class="col-md-3 text-center">
                         <div class="">
                             <i class="fa fa-building-o"></i> Organization Name
+
                         </div>
                         <div>
                             <h1 class="font-extra-bold m-t-xl m-b-xs">
                                 @ViewBag.CompanyName
                             </h1>
                         </div>
-                        <div class="small m-t-xl">
-                            <i class="fa fa-clock-o"></i> Data from January
+                        <div class="tooltip-demo text-center m-t-xl">
+                            @{
+                                if (ViewBag.test == "test")
+                                {
+                                    //for getting UserDetailsID
+
+                                    <button id="btnAddUser" onclick="window.location.href='@Url.Action("Registration", "User", new { area = "User" })'" class="btn btn-success" type="button" data-toggle="tooltip" data-placement="top" title="add member"><i class="fa fa-user"> </i> <span class="bold"><i class="fa fa-plus"> </i></span></button>
+                                }
+                            }
+                            @* <i class="fa fa-clock-o"></i> Data from January*@
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -27,7 +36,32 @@
                     <div class="col-md-3 text-center">
                         <div class="">
                             <i class="fa fa-clock-o"></i> Current Amount
-                        </div>
+                            <div class="btn-group pull-right nav navbar-nav font-extra-bold tooltip-demo">
+                                <a class="dropdown-toggle btn btn-info btn-circle" href="#" data-toggle="dropdown">
+                                    <i class="fa fa-bars " data-toggle="tooltip" data-placement="left" title="export Action"></i>
+                                </a>
+                                @*<button data-toggle="dropdown tooltip" class="dropdown-toggle btn btn-info btn-circle"><i class="fa fa-bars" data-toggle=" tooltip" data-placement="top" title="export Action"></i></button>*@
+                                <ul class="dropdown-menu hdropdown notification ">
+                                    <li>
+                                        <a>
+                                            <span class="label label-success">NEW</span> It is a long established.
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="label label-warning">WAR</span> There are many variations.
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="label label-danger">ERR</span> Contrary to popular belief.
+                                        </a>
+                                    </li>
+                                    <li class="summary"><a href="#">See all notifications</a></li>
+                                </ul>
+                            </div>
+</div>
+
                         <div>
                             <h1 class="font-extra-bold m-t-xl m-b-xs">
                                 @ViewBag.organicationAmount
@@ -40,8 +74,8 @@
                                 {
                                     //for getting UserDetailsID
                                     var ID = "0";
-                                    <button onclick="addAmount(this.id);" id="@ID" class="btn btn-success" type="button" data-toggle="tooltip" data-placement="top" title="Credit Amount"><i class="fa fa-plus"></i></button>
-                                    <button onclick="subtractAmount(this.id);" id="@ID" class="btn btn-warning " type="button" data-toggle="tooltip" data-placement="top" title="Debit Amount"><i class="fa fa-minus"></i></button>
+                                    <button onclick="addAmount(this.id);" id="@ID" class="btn btn-success" type="button" data-toggle="tooltip" data-placement="top" title="Credit Amount"><i class="fa fa-money"> </i><span class="bold"> <i class="fa fa-plus"></i></span></button>
+                                    <button onclick="subtractAmount(this.id);" id="@ID" class="btn btn-warning " type="button" data-toggle="tooltip" data-placement="top" title="Debit Amount"><i class="fa fa-money"> </i><span class="bold"> <i class="fa fa-minus"></i></span></button>
                                 }
                             }
                             @*<i class="fa fa-clock-o"></i> Last active in 12.10.2015*@

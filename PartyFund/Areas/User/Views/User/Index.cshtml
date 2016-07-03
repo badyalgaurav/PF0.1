@@ -9,7 +9,7 @@
 <div class="content animate-panel zoomIn">
     @*RenderPartial will be used to reuse the same function*@
     @{Html.RenderPartial("_OrganizationPanel");}
-    <div class="row">
+    @*<div class="row">
         <div class="col-lg-12">
             <div class="hpanel">
                 <div class="panel-body">
@@ -19,14 +19,13 @@
                         </ol>
                     </div>
                     <h2 class="font-light m-b-xs">
-                      @*  <button onclick="window.location(@Url.Action("Registration", "User", new { area = "User" }))">test</button>*@
                         <a id="btnAddUser" href='@Url.Action("Registration", "User", new { area = "User" })'>Add New User</a>
                     </h2>
                     <small>Two great icon libraries. Pe-icon-7-stroke and Font Awesome</small>
                 </div>
             </div>
         </div>
-        </div>
+        </div>*@
 
         <div class="row">
             <div class="col-lg-12">
