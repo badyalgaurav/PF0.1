@@ -238,6 +238,7 @@
     <Content Include="Content\images\Preloader_3.gif" />
     <Content Include="Content\images\profile.jpg" />
     <Content Include="Content\scripts\charts.js" />
+    <Content Include="Content\scripts\countryDropdownJS.js" />
     <Content Include="Content\scripts\dataTableResponsive.js" />
     <Content Include="Content\scripts\dataTableResponsive\dataTableBootstrapMin.js" />
     <Content Include="Content\scripts\dataTableResponsive\dataTableMin.js" />
@@ -245,6 +246,7 @@
     <Content Include="Content\scripts\dataTableResponsive\responsiveBootstrapMin.js" />
     <Content Include="Content\scripts\homer.js" />
     <Content Include="Content\scripts\ajaxLoader.js" />
+    <Content Include="Content\styles\countryDropdownCSS.css" />
     <Content Include="Content\styles\toastrOptions.js" />
     <Content Include="Content\styles\customStyles.css" />
     <Content Include="Content\styles\dataTableResponsiveCSS.css" />

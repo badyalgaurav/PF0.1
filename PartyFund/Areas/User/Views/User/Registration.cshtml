@@ -3,6 +3,20 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 @model PartyFund.Presentation.UI.Common.ViewModels.UserDetailViewModel
+@section styles{
+    <link href="http://blazeworx.com/flags.css" rel="stylesheet">
+@*<link href="~/Content/styles/countryDropdownCSS.css" rel="stylesheet" />*@
+}
+<style>
+    .dropdown-toggle {
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -39,7 +53,7 @@
                             </div>
                             <div class="form-group col-lg-6">
                                 @Html.LabelFor(x => x.UserName)
-                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", required = "required", name = "UserName" })
                             </div>
                             <div class="form-group col-lg-6">
                                 @Html.LabelFor(x => x.CompanyName)
@@ -77,7 +91,9 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             @Html.LabelFor(x => x.Country)
-                                            @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })
+                                            <div class="flagstrap" id="select_country" data-input-name="NewBuyer_country" data-selected-country=""></div>
+                                            @Html.HiddenFor(x => x.Country, new { @class = "form-control" })
+                                           
                                         </div>
 
 
@@ -103,18 +119,95 @@
     </div>
 </div>
 @section Scripts{
+@*<script src="~/Content/scripts/countryDropdownJS.js"></script>*@
+    <script src="http://blazeworx.com/jquery.flagstrap.min.js"></script>
     <script>
-    $(function () {
-        jQuery('.showhide').click();
-        debugger;
-        var status = String("@ViewBag.Status");
-        var companyName = String("@ViewBag.companyName");
-        if (status.trim()) {
-            toastr.success('Info - This is a ' + "@ViewBag.Status" + ' custom Homer info notification');
-            $("input[type=text],input[type=email],input[type='password'], textarea").val("");
-            //to give company name to organization field
-            $("#CompanyName").val(companyName);
-        }
-    });
+        $(document).ready(function () {
+            $('#select_country').attr('data-selected-country', 'Please Select your country');
+            $('#select_country').flagStrap();
+        });
+    </script>
+    <script>
+        $(function () {
+            jQuery('.showhide').click();
+            debugger;
+            var status = String("@ViewBag.Status");
+            var companyName = String("@ViewBag.companyName");
+            if (status.trim()) {
+                toastr.success('Info - This is a ' + "@ViewBag.Status" + ' custom Homer info notification');
+                $("input[type=text],input[type=email],input[type='password'], textarea").val("");
+                //to give company name to organization field
+                $("#CompanyName").val(companyName);
+                $("#Country").val("");
+            }
+        });
+    </script>
+    <script>
+
+        $(function () {
+
+
+            $("#registrationForm").validate({
+                rules: {
+                    FirstName: {
+                        required: true,
+                        minlength: 3
+                    },
+                    LastName: {
+                        required: true,
+                        minlength: 3
+                    },
+                    UserName: {
+                        required: true,
+                        minlength: 5
+                    },
+                    MobileNumber: {
+                        required: true,
+                        number: true,
+                        maxlength: 10,
+                        minlength: 10
+                    }
+                },
+                messages: {
+                    MobileNumber: {
+                        required: "(Please enter your phone number)",
+                        number: "(Please enter valid phone number)"
+                    },
+                    UserName: {
+                        required: "Please enter valid user name",
+                        minlength: "User name should be at least 5 characters long."
+                    },
+                    FirstName: {
+                        required: "Please enter first name",
+                        minlength: "First name should be at least 3 characters long."
+                    },
+                    LastName: {
+                        required: "Please enter last name",
+                        minlength: "Last name should be at least 3 characters long."
+                    },
+                },
+                submitHandler: function (form) {
+                    debugger;
+                    var test = $(".dropdown-toggle").text();
+                    //here regular expression is used to make text into lines
+                    var lines = test.replace(/(^[ \t]*\n)/gm, "").split("\n");
+                    //get last line as country name and regular expression is used to delete white space
+                    var countryName = lines[lines.length - 1].replace(/^\s+|\s+$/g, '');
+                    if (!(countryName == "Please select country" || countryName == "") ) {
+                        $("#Country").val(countryName);
+                    }
+                    form.submit();
+                },
+                errorPlacement: function (error, element) {
+                    $(element)
+                            .closest("form")
+                            .find("label[for='" + element.attr("id") + "']")
+                            .append(error);
+                },
+                errorElement: "span",
+            });
+
+
+        });
     </script>
 }

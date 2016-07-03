@@ -17,6 +17,7 @@ using System.Web.Security;
 using PartyFund.Controllers;
 using PartyFund.Infrastructure;
 using PartyFund.Presentation.UI.Common.Helpers;
+using System.Globalization;
 
 namespace PartyFund.Areas.User.Controllers
 {
@@ -70,7 +71,12 @@ namespace PartyFund.Areas.User.Controllers
                 sum = sum + itemAmount;
             }
             //string format C0 to format to dollar sign , G29 for simple
-            var stringSum = String.Format("{0:C0}", sum);
+            string fare = Convert.ToString(sum);
+            decimal parsed = decimal.Parse(fare, CultureInfo.InvariantCulture);
+            CultureInfo hindi = new CultureInfo("hi-IN");
+            string stringSum = string.Format(hindi, "{0:c}", parsed);
+            //for dollar sign
+            // var stringSum = String.Format("{0:C0}", sum);
             ViewBag.organicationAmount = stringSum;
             ViewBag.CompanyName = User.CompanyName;
             #endregion
@@ -244,8 +250,50 @@ namespace PartyFund.Areas.User.Controllers
             int iDisplayLength = param.iDisplayLength;
             //userlist cache is created in INDEX method
             var userList = (List<GetUsersByAdminID_Result2>)System.Web.HttpContext.Current.Cache["userList"];
+            #region sorting
+            if (sortDirection == "desc")
+            {
+                switch (sortColumnIndex)
+                {
+                    case 0:
+                        {
+                            userList = userList.OrderByDescending(x => x.UserName).ToList();
+                            break;
+                        }
+                    case 1:
+                        {
+                            userList = userList.OrderByDescending(x => x.CurrentAmount).ToList();
+                            break;
+                        }
+                }
+
+            }
+            if (sortDirection == "asc")
+            {
+                switch (sortColumnIndex)
+                {
+                    case 0:
+                        {
+                            userList = userList.OrderBy(x => x.UserName).ToList();
+                            break;
+                        }
+                    case 1:
+                        {
+                            userList = userList.OrderBy(x => x.CurrentAmount).ToList();
+                            break;
+                        }
+                }
+            }
+            #endregion
+            #region Searching
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                userList = userList.Where(x => x.UserName != null && x.UserName.ToLower().Contains(param.sSearch.ToLower())).ToList();
+            }
+            #endregion
             var response = userList.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-            return Json(new
+           
+             return Json(new
             {
                 sEcho = param.sEcho,
                 iTotalRecords = userList.Count,
